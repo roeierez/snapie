@@ -13,35 +13,14 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;        // set our port
 
-// ROUTES FOR OUR API
-// =============================================================================
-var router = express.Router();              // get an instance of the express Router
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    // this will return our APP
-    //res.sendFile(path.join(__dirname + '/index.html'));
-});
-
-// more routes for our API will happen here
-
-// http://localhost:8080/api/template?id=4
-router.get('/template', function(req, res){
-      var template_id = req.param('id');
-      res.json({ message: 'hooray! You\'ve selected template:'+template_id });   
-} );
-
-router.get('/presets', function(req, res){
-      res.json({ message: 'hooray! You\'ve selected presets' });   
-} );
-
-router.get('/graphics', function(req, res){
-      res.json({ message: 'hooray! You\'ve selected graphics' });   
-} );
+var api_router = require('./api/api.js');
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use('/api', api_router);
+
+module.exports = app;
 
 // START THE SERVER
 // =============================================================================
