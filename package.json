@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/weeksling/snapie/issues"
   },
-  "homepage": "https://github.com/weeksling/snapie#readme"
+  "homepage": "https://github.com/weeksling/snapie#readme",
+  "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
+  }
 }
