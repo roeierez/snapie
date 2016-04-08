@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/weeksling/snapie/issues"
   },
-  "homepage": "https://github.com/weeksling/snapie#readme"
+  "homepage": "https://github.com/weeksling/snapie#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
