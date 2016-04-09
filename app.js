@@ -6,6 +6,7 @@ var path = require('path')
 
 // serve static files
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'content')))
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
