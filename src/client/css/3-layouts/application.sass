@@ -1,5 +1,6 @@
 $content-editor-width: 565px
 $editor-canvas-width: 450px
+$editor-canvas-color: lightgray
 $categories-width: 80px
 $categories-bg-color: #F2F2F2
 $items-width: 470px
@@ -9,7 +10,7 @@ $header-height: 40px
 $header-color: #68c4de
 
 .header
-	+span-columns(12)
+	width: 100%
 	height: $header-height
 	background-color: $header-color
 
@@ -20,9 +21,10 @@ $header-color: #68c4de
 		width: $content-editor-width
 		.categories
 			width: $categories-width
+			height: 100%
 			bottom: 0
 			left: 0
-			top: 40px
+			top: 40
 			background-color: $categories-bg-color
 		.items
 			width: $items-width
@@ -37,6 +39,6 @@ $header-color: #68c4de
 		width: $editor-canvas-width
 
 		#canvas
-			background-color: gray
+			background-color: $editor-canvas-color
 
 		

@@ -7,6 +7,8 @@ var clean = require('gulp-clean');
 var sass  = require('gulp-ruby-sass');
 var livereload = require('gulp-livereload');
 var autoprefixer = require('gulp-autoprefixer');
+var nodemon = require('gulp-nodemon');
+
 
 var config = {
   HTML: 'src/client/*.html',
@@ -20,8 +22,10 @@ var config = {
 
 gulp.task('default', ['replaceHTML', 'build', 'sass']);
 
-gulp.task('build', function(){
-  gulp.src(config.JS)
+gulp.task('build', ['js', 'replaceHTML', 'sass']);
+
+gulp.task('js', function () {
+  return gulp.src(config.JS)
     .pipe(babel({
         only: [
           'src/application',
@@ -31,15 +35,41 @@ gulp.task('build', function(){
       }))
     .pipe(concat(config.MINIFIED_OUT))
     .pipe(gulp.dest(config.DEST));
-});
+})
 
 gulp.task('replaceHTML', function(){
-  gulp.src(config.HTML)
+  return gulp.src(config.HTML)
     .pipe(htmlreplace({
       'js': 'build/' + config.MINIFIED_OUT
     }))
     .pipe(gulp.dest(config.DEST));
 });
+
+gulp.task('development', ['build'], function (){
+  gulp.watch(['src/**/*'], ['build'])
+  nodemon({
+      script: './app.js',
+      delayTime: 1,
+      watch: ['./src']
+    })
+    .on('restart', function(ev) {
+        console.log('*** nodemon restarted');
+        console.log('files changed:\n' + ev);
+        // setTimeout(function() {
+        //     browserSync.notify('reloading now ...');
+        //     browserSync.reload({stream: false});
+        // }, config.browserReloadDelay);
+    })
+    .on('start', function () {
+        console.log('*** nodemon started');
+    })
+    .on('crash', function () {
+        console.log('*** nodemon crashed: script crashed for some reason');
+    })
+    .on('exit', function () {
+        console.log('*** nodemon exited cleanly');
+    });
+})
 
 /**
  * Compile less to css
