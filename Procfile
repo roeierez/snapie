@@ -1,0 +1,1 @@
+web: gulp && node app.js
