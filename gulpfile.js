@@ -5,7 +5,6 @@ var babel = require('gulp-babel')
 var htmlreplace = require('gulp-html-replace');
 var clean = require('gulp-clean');
 var sass  = require('gulp-ruby-sass');
-var livereload = require('gulp-livereload');
 var autoprefixer = require('gulp-autoprefixer');
 var nodemon = require('gulp-nodemon');
 
