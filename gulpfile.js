@@ -79,7 +79,6 @@ gulp.task('sass', ['clean-styles'], function() {
         .on('error', sass.logError)
         //.pipe(autoprefixer({browsers: ['last 2 version', '> 5%']}))
         .pipe(gulp.dest('./build/css'))
-        .pipe(livereload());
 });
 
 
