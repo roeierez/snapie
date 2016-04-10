@@ -1,7 +1,3 @@
-// var React = require('react');
-// var ReactDOM = require('react-dom');
-
-
 var Editor = React.createClass({
 	render: function () {
 		return (

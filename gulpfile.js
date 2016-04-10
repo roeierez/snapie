@@ -1,7 +1,9 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var react = require('gulp-react');
+var babel = require('gulp-babel')
 var htmlreplace = require('gulp-html-replace');
+var clean = require('gulp-clean');
 
 var path = {
   HTML: 'src/client/index.html',
@@ -13,7 +15,13 @@ var path = {
 
 gulp.task('build', function(){
   gulp.src(path.JS)
-    .pipe(react())
+    .pipe(babel({
+        only: [
+          'src/application',
+        ],
+        presets: ['react'],
+        compact: false
+      }))
     .pipe(concat(path.MINIFIED_OUT))
     .pipe(gulp.dest(path.DEST));
 });
