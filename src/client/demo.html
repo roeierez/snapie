@@ -5,22 +5,27 @@
     <title>React Tutorial</title>
     <!-- Not present in the tutorial. Just for basic styling. -->
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.0/react.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.0/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
   </head>
   <body>
     <div class="header"></div>
-    <div class="editor">
-        <section class="editor-sidebar">
-            <div id="editor"></div>
-        </section>
+    <section class="editor">
+        <div class="content-editor">
+            <div class="categories"></div>
+            <div class="items">
+                <div class="tags"></div>
+                <!--In here will go a list of the elements, filtered by tage-->
+            </div>
+        </div>
 
-        <section class="editor-canvas">
-            <canvas id="canvas" width="300" height="300"></canvas>
-        </section>
-    </div>
+        <div class="editor-canvas">
+
+            <canvas id="canvas" width="320" height="480"></canvas>
+        </div>
+    </section>
 
     <script src="js/build.min.js"></script>
     <script>
