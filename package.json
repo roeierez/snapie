@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/weeksling/snapie.git"
   },
-  "engines":{
+  "engines": {
     "node": "0.10.32"
   },
   "author": "",
