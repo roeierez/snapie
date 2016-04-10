@@ -1,1 +1,1 @@
-web: npm install && node node_modules/gulp/bin/gulp && node app.js
+web: npm install && ls node_modules && node node_modules/gulp/bin/gulp && node app.js
