@@ -13,7 +13,8 @@ app.use(express.static(path.join(__dirname, 'content')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || 5000;        // set our port
+app.set('port', port)
 
 var api_router = require('./src/server/api/api.js');
 
@@ -25,5 +26,6 @@ module.exports = app;
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
-console.log('Starting App on ' + port);
+app.listen(app.get('port'), function(){ console.log("Express server listening on port %d in %s mode", app.get('port'), app.settings.env);});
+
+

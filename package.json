@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/weeksling/snapie.git"
   },
+  "engines":{
+    "node": "0.10.32"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
