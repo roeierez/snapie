@@ -4,6 +4,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var path = require('path')
 var pg = require('pg');
+var populateDB = require('./util/populate_db.js');
+var api_router = require('./src/server/api/api.js');
 
 // serve static files
 app.use(express.static(path.join(__dirname, 'build')));
@@ -17,13 +19,16 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 5000;        // set our port
 app.set('port', port)
 
-var api_router = require('./src/server/api/api.js');
-
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', api_router);
 
 module.exports = app;
+
+// INITIALLY POPULATE THE DB WITH ALL FILES
+content_path = './content/icons';
+var files = populateDB.getFiles(content_path)
+populateDB.populateDB(files);
 
 // START THE SERVER
 // =============================================================================
