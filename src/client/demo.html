@@ -19,19 +19,15 @@
             <a class="nav-item">Tutorial</a>
         </div>
     </div>
-    <div class="editor">
+    
+
+    <div class="application">
         <div class="content-editor">
-            <ul class="categories"></ul>
-            <div class="items">
-                <div class="tags"></div>
-                <!--In here will go a list of the elements, filtered by tage-->
-            </div>
-        </div>
+            <div id="editor"><div data-reactroot="" class="editor"><div class="content-container"><div class="filter-container"><ul><li class="filter">All</li><li class="filter">Food &amp; Drink</li><li class="filter">Party</li><li class="filter">Love</li><li class="filter">Shapes</li><li class="filter">Emojis</li><li class="filter">Animals</li><li class="filter">Holidays</li><li class="filter">Social</li><li class="filter">Technology</li><li class="filter">Random</li></ul></div><ul class="content-list"><li class="element"><img class="element-image" src="/icons/alarm.svg"></li><li class="element"><img class="element-image" src="/icons/apartment.svg"></li><li class="element"><img class="element-image" src="/icons/arrow-down-circle.svg"></li></ul></div></div></div>
 
-        <div class="editor-canvas">
-
-            <canvas id="canvas" width="320" height="480"></canvas>
-        </div>
+        <section class="editor-canvas">
+            <div class="canvas-container" style="width: 300px; height: 300px; position: relative; -webkit-user-select: none;"><canvas id="canvas" width="300" height="300" class="lower-canvas" style="position: absolute; width: 300px; height: 300px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas><canvas class="upper-canvas " width="300" height="300" style="position: absolute; width: 300px; height: 300px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas></div>
+        </section>
     </div>
 
     <!--<script src="js/build.min.js"></script>-->
