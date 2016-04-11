@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Graphics = React.createClass({
   getInitialState: function() {
     return {
