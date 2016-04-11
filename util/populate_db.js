@@ -14,8 +14,9 @@ exports.getFiles = function(dir, fileList){
             getFiles(name, fileList);
         } else {
             // get rid of the '.' in the beggining of the file path
-            while(name.charAt(0) === '.')
-              name = name.substr(1);
+            //while(name.charAt(0) === '.')
+            //  name = name.substr(1);
+            name = name.replace("./content", "");
             fileList.push(name);
         }
     }
