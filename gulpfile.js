@@ -49,24 +49,30 @@ gulp.task('development', ['build'], function (){
   nodemon({
       script: './app.js',
       delayTime: 1,
-      watch: ['./src']
+      watch: ['./src'],
+      env: {
+        NODE_ENV: 'dev'
+      }
     })
     .on('restart', function(ev) {
-        console.log('*** nodemon restarted');
-        console.log('files changed:\n' + ev);
-        // setTimeout(function() {
-        //     browserSync.notify('reloading now ...');
-        //     browserSync.reload({stream: false});
-        // }, config.browserReloadDelay);
+      console.log('*** nodemon restarted');
+      console.log('files changed:\n' + ev);
+      // setTimeout(function() {
+      //     browserSync.notify('reloading now ...');
+      //     browserSync.reload({stream: false});
+      // }, config.browserReloadDelay);
     })
     .on('start', function () {
-        console.log('*** nodemon started');
+      console.log('*** nodemon started');
     })
     .on('crash', function () {
-        console.log('*** nodemon crashed: script crashed for some reason');
+      console.log('*** nodemon crashed: script crashed for some reason');
+    })
+    .on('error', function (e) {
+      console.log(e)
     })
     .on('exit', function () {
-        console.log('*** nodemon exited cleanly');
+      console.log('*** nodemon exited cleanly');
     });
 })
 

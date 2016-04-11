@@ -25,11 +25,13 @@ app.use('/api', api_router);
 
 module.exports = app;
 
-// INITIALLY POPULATE THE DB WITH ALL FILES
-content_path = './content/icons';
-var files = populateDB.getFiles(content_path);
-console.log(files);
-populateDB.populateDB(files);
+if (process.env.NODE_ENV != 'dev'){
+	// INITIALLY POPULATE THE DB WITH ALL FILES
+	content_path = './content/icons';
+	var files = populateDB.getFiles(content_path);
+	console.log(files);
+	populateDB.populateDB(files);
+}
 
 // START THE SERVER
 // =============================================================================

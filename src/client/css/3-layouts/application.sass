@@ -1,63 +1,165 @@
-$content-editor-width: 565px
+$content-editor-width: 648px
+$content-editor-height:650px
 $top-margin: 18px
 $editor-canvas-width: calc(100% - #{$content-editor-width})
-$editor-canvas-color: gray
+$editor-canvas-color: #F1F1F1
 $categories-width: 170px
 $categories-bg-color: lightgray
 $items-width: calc(#{$content-editor-width} - #{$categories-width})
 $tags-height: 69px
+$globalfont: gotham
+$font-color: #99979e
 
-$header-height: 73px
+$header-height: 60px
 $header-color: #68c4de
+
 
 .header
 	width: 100%
 	height: $header-height
 	background-color: $header-color
-
+	color: white
+	font-family: $globalfont
+	line-height: 60px
+	.caption
+		float: left
+		margin-left: 15px
+	.logo 
+		text-align: center
+		margin-right: 120px
+	.nav
+		position: absolute
+		right: 0
+		top: 0
+		li
+			margin-right: 25px
+			display: inline-block
+		a
+			color: white
+.clear
+	width: 1200px
+	height: 15px
+	position: absolute
+	top: 60px
+	right: 0px
+	background-color: #f2f2f2
 .application
-	height: 100%
+	width: 100%
 	.content-editor
 		position: absolute
 		float: left
-		height: 100%
+		height: $content-editor-height
 		background-color: #F1F1F1
 		width: $content-editor-width
 
-		.categories
-			width: $categories-width
+		.sidebar 
+			background-color: #f2f2f2
+			position: absolute
 			height: 100%
-			bottom: 0
-			left: 0
-			top: 40
-			background-color: $categories-bg-color
+
+			li 
+				padding-top: 40px
+				width: 130px
+				text-align: center
+				height: 130px
+				border-top: solid 1px #d6dcdf
+				border-right: solid 1px #d6dcdf
+				text-transform: uppercase
+				font-size: 12px
+				color: $font-color
+				font-family: $globalfont
+
+				
+				img
+					height: 31px
+
+			li.active
+				background-color: lightgrey
+				border-top: none
+			li:nth-child(4)
+				padding-top: 30px
+			li:last-child
+				padding-top: 30px
+				border-bottom: solid 1px #d3d9f5
+				border-right: solid 1px #d3d9f5
 
 		.content-container
 			width: $items-width
+			background-color: #f2f2f2
+			position: absolute
+			left: 130px
 
 			.filter-container
-				.filter
-			
+				background-color: white
+				width: 490px
+				height: 100px
+				margin: 15px
+				color: $font-color
+				font-family: $globalfont
+				font-size: 12px
+				table, th, td 
+					border: none
+				
+				td:hover
+					color: #68c4de
+				.filters
+					.filter
+						margin: 0 0 0 40px
+						position: relative
+						top: 12px
+
 			.content-list
-				width: 100%
-				height: 69px
+				background-color: white
+				margin: 0 15px
+				width: 490px
+				min-height: 520px
+
+				li
+					display: inline-block
+					margin: 30px
+
 				.element-image
 					width: 100px
-
-
 	.editor-canvas
-		position: relative
+		float: right  
 		width: $editor-canvas-width
-		background-color: #FFFFFF
-		float: right
-
+		overflow: hidden
+		z-index: -10
+		background-color: gray
 		.canvas-container
-			margin-left: auto
-			margin-right: auto
-			margin-top: $top-margin
+			width: 380px
+			padding-top: 30px
+			margin: 30px auto 0 auto
 
 		#canvas
 			background-color: $editor-canvas-color
+
+
+	.right 
+		
+		float: none  
+		width: 380px
+		overflow: hidden
+		margin-left: auto
+		margin-right: auto
+		position: relative
+		left: 20px
+		z-index: -10
+		img
+			width: 380px
+			padding-left: 30px
+			padding-top: 30px
+
+			@media screen and (max-width: 960px)
+				display: none
+		button
+			padding: 10px 50px 10px 50px
+			margin-left: 120px
+			background-color: #68c4de
+			font-family: $globalfont
+
+	
+
 
 
 		

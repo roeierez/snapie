@@ -31,7 +31,7 @@ exports.populateDB = function(fileList){
     if(err) {
       done();
       console.log(err);
-      return res.status(500).json({ success: false, data: err});
+      return err;
     }
     for(var i in fileList){
       console.log(fileList[i]);
