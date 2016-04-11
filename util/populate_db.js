@@ -14,6 +14,8 @@ exports.getFiles = function(dir, fileList){
             getFiles(name, fileList);
         } else {
             //name = name.split('.').join("");
+            while(name.charAt(0) === '.')
+              name = name.substr(1);
             fileList.push(name);
         }
     }
@@ -32,7 +34,7 @@ exports.populateDB = function(fileList){
     }
     for(var i in fileList){
       console.log(fileList[i]);
-      //client.query("INSERT INTO elements(source) values($1)", [fileList[i]]);
+      client.query("INSERT INTO elements(source) values($1)", [fileList[i]]);
     }
     done();
   });
