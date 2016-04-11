@@ -1,12 +1,13 @@
 $content-editor-width: 565px
-$editor-canvas-width: 450px
-$editor-canvas-color: lightgray
-$categories-width: 80px
-$categories-bg-color: #F2F2F2
-$items-width: 470px
+$top-margin: 18px
+$editor-canvas-width: calc(100% - #{$content-editor-width})
+$editor-canvas-color: gray
+$categories-width: 170px
+$categories-bg-color: lightgray
+$items-width: calc(#{$content-editor-width} - #{$categories-width})
 $tags-height: 69px
 
-$header-height: 40px
+$header-height: 73px
 $header-color: #68c4de
 
 .header
@@ -15,9 +16,12 @@ $header-color: #68c4de
 	background-color: $header-color
 
 .editor
+	height: 100%
 	.content-editor
+		position: absolute
 		float: left
-
+		height: 100%
+		background-color: #F1F1F1
 		width: $content-editor-width
 		.categories
 			width: $categories-width
@@ -28,17 +32,23 @@ $header-color: #68c4de
 			background-color: $categories-bg-color
 		.items
 			width: $items-width
-
+			
 			.tags
 				width: 100%
 				height: 69px
 
 	.editor-canvas
-		float: right
-		
+		position: relative
 		width: $editor-canvas-width
+		background-color: #FFFFFF
+
+		.canvas-container
+			margin-left: auto
+			margin-right: auto
+			margin-top: $top-margin
 
 		#canvas
 			background-color: $editor-canvas-color
+
 
 		
