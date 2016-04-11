@@ -1,3 +1,6 @@
+// DONT REALLY NEED THIS SINCE THE TABLE GETS CREATED IN HEROKU
+// ONLY USED FOR CREATING ONE IN YOUR LOCAL ENV.
+
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/pepper';
 

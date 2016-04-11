@@ -29,17 +29,4 @@ module.exports = app;
 // =============================================================================
 app.listen(app.get('port'), function(){ console.log("Express server listening on port %d in %s mode", app.get('port'), app.settings.env);});
 
-// testing database
-app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM elements', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.render('src/client/db', {results: result.rows} ); }
-    });
-  });
-})
-
 

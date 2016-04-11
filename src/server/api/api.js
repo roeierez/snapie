@@ -12,7 +12,8 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/pe
 // ELEMENTS
 ////////////////////////////////////////////////////////////////////////////////
 
-// for testing purpose use the command 
+/*
+REMOVE THIS SINCE IT WILL BE DONE BY GOING THROUGH THE CONTENTS FOLDER
 // curl --data "source=/icons/alarms.svg" http://127.0.0.1:5000/api/elements
 router.post('/elements', function(req, res) {
   var results = [];
@@ -47,6 +48,7 @@ router.post('/elements', function(req, res) {
       });
     });
 });
+*/
 
 router.get('/elements', function(req, res){
   // example expected output: [{"id":1,"source":"'/icons/alarms.svg'"},{"id":2,"source":"/icons/apartment.svg"}]
@@ -80,6 +82,8 @@ router.get('/elements', function(req, res){
   });  
 } );
 
+/*
+MIGHT NOT WANT TO PUT THIS FOR SECURITY PURPOSES
 // curl -X DELETE http://127.0.0.1:5000/api/elements/1
 router.delete('/elements/:graphics_id', function(req, res) {
 
@@ -116,6 +120,7 @@ router.delete('/elements/:graphics_id', function(req, res) {
     });
 
 });
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // TEMPLATES

@@ -44,7 +44,7 @@ var ContentBrowser = React.createClass({
 	render: function (){
 		return (
 			<div className="ContentBrowser">
-				<Graphics source="/api/graphics"/>
+				<Graphics source="/api/elements"/>
 			</div>
 		);
 	}
