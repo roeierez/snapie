@@ -1,5 +1,5 @@
 var fs = require('fs');
-var pg = require('pg')
+var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/pepper';
 
 // takes a directory and outputs a list of files
@@ -13,7 +13,7 @@ exports.getFiles = function(dir, fileList){
         if (fs.statSync(name).isDirectory()){
             getFiles(name, fileList);
         } else {
-            //name = name.split('.').join("");
+            // get rid of the '.' in the beggining of the file path
             while(name.charAt(0) === '.')
               name = name.substr(1);
             fileList.push(name);
