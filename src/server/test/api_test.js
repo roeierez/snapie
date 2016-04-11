@@ -26,7 +26,7 @@ describe('verify templates', function() {
 describe('verify graphics', function() {
     it('returns a list of graphics', function(done) {
         request
-          .get('/graphics')
+          .get('/elements')
           .expect({message: "hooray! You\'ve selected graphics'"}, done);
     });
 });
