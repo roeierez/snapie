@@ -3,6 +3,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var path = require('path')
+var pg = require('pg');
 
 // serve static files
 app.use(express.static(path.join(__dirname, 'build')));
