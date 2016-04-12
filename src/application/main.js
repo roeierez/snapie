@@ -28,7 +28,10 @@ var FabricEditor = React.createClass({
 	render: function () {
 		return (
 			<div className="editor-canvas">
-				<canvas id="canvas" width="300" height="300"></canvas>
+				<div className="underlay">
+					<img className='phone-img' src="/img/iphone.png" alt="" />
+					<canvas id="canvas" width="270" height="480"></canvas>
+				</div>
 	        </div>
 		)
 	}

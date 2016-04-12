@@ -9,6 +9,7 @@ $items-width: calc(#{$content-editor-width} - #{$categories-width})
 $tags-height: 69px
 $globalfont: gotham
 $font-color: #99979e
+$phone-width: 320px
 
 $header-height: 60px
 $header-color: #68c4de
@@ -124,16 +125,22 @@ $header-color: #68c4de
 		float: right  
 		width: $editor-canvas-width
 		overflow: hidden
-		z-index: -10
-		background-color: gray
-		.canvas-container
-			width: 380px
-			padding-top: 30px
-			margin: 30px auto 0 auto
 
-		#canvas
-			background-color: $editor-canvas-color
+		.underlay
+			width: $phone-width
+			padding-top: 10px
+			margin: 0px auto 0 auto
 
+			.phone-img
+				width: $phone-width
+				position: absolute
+				z-index: 1
+
+			.canvas-container
+				position: relative
+				z-index: 20   
+				margin-left: 25px
+				margin-top: 70px
 
 	.right 
 		
