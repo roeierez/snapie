@@ -12,31 +12,6 @@ var Editor = React.createClass({
 	}
 })
 
-
-
-// Fabric Canvas Elements
-var FabricEditor = React.createClass({
-	componentDidMount: function () {
-		fabricAPI = {
-			addImage: function (image) {
-				fabric.Image.fromURL(image.source, function (img){
-					canvas.add(img)
-				})
-			}
-		}
-	},
-	render: function () {
-		return (
-			<div className="editor-canvas">
-				<div className="underlay">
-					<img className='phone-img' src="/img/iphone.png" alt="" />
-					<canvas id="canvas" width="270" height="480"></canvas>
-				</div>
-	        </div>
-		)
-	}
-})
-
 // Content Browser Elements
 
 var ContentContainer = React.createClass({
@@ -125,6 +100,56 @@ var ContentItem = React.createClass({
 });
 
 
+
+// Editor Canvas Elements
+
+var FabricEditor = React.createClass({
+	componentDidMount: function () {
+		fabricAPI = {
+			addImage: function (image) {
+				fabric.image.fromURL(image.source, function (image){
+					image.set({
+					})
+					canvas.add(image);
+					canvas.renderAll();
+				})
+			}
+		}
+	},
+	render: function () {
+		return (
+			<div className="editor-canvas">
+				<EditToolbar/>
+				<div className="underlay">
+					<img className='phone-img' src="/img/iphone.png" alt="" />
+					<canvas id="canvas" width="270" height="480"></canvas>
+				</div>
+	        </div>
+		)
+	}
+})
+
+var EditToolbar = React.createClass({
+	changeColor: function(color){
+		console.log(color)
+		fabricAPI.setActiveColor(color)
+	},
+	render: function () {
+		var self = this;
+		return (
+			<ul class="edit-toolbar">
+				<li><a onClick={self.changeColor.bind(self, '#0F0')}>Green</a></li>
+				<li><a onClick={self.changeColor}>Blue</a></li>
+				<li><a onClick={this.changeColor.bind(self, '#F00')}>Red</a></li>
+			</ul>
+		)
+	}
+})
+
+
+
+
+// Bootstrapping the application
 
 ReactDOM.render(
 	<Editor/>,
