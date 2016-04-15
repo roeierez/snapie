@@ -12,36 +12,6 @@ var Editor = React.createClass({
 	}
 })
 
-// Fabric Canvas Elements
-var FabricEditor = React.createClass({
-	componentDidMount: function () {
-		fabricAPI = {
-			addImage: function (image) {
-				fabric.Image.fromURL(image.source, function (img){
-					canvas.add(img)
-				})
-			}
-		}
-	},
-	downloadCanvas: function(event) {
-		canvas.deactivateAll().renderAll();
-		var url = canvas.toDataURL("png");
-		$('#downloader').attr({href:url,download:'peppered'});
-	},
-	render: function () {
-		var self = this;
-		return (
-			<div className="editor-canvas">
-				<div className="underlay">
-					<img className='phone-img' src="/img/iphone.png" alt="" />
-					<canvas id="canvas" width="270" height="480"></canvas>
-				</div>
-				<a href="#" id="downloader" onClick={this.downloadCanvas.bind(this)}>Download!</a>
-	     </div>
-		)
-	}
-})
-
 // Content Browser Elements
 
 var ContentContainer = React.createClass({
@@ -130,31 +100,39 @@ var ContentItem = React.createClass({
 });
 
 
-
-// Editor Canvas Elements
-
+// Fabric Canvas Elements
 var FabricEditor = React.createClass({
 	componentDidMount: function () {
 		fabricAPI = {
 			addImage: function (image) {
-				fabric.image.fromURL(image.source, function (image){
-					image.set({
-					})
-					canvas.add(image);
+				console.log('url',image.source)
+				fabric.Image.fromURL(image.source, function (img){
+					img.set({
+						left: canvas.getWidth()/3,
+  					top: canvas.getHeight()/2,
+					});
+					img.scaleToHeight(100)
+					canvas.add(img);
 					canvas.renderAll();
 				})
 			}
 		}
 	},
+	downloadCanvas: function(event) {
+		canvas.deactivateAll().renderAll();
+		var url = canvas.toDataURL("png");
+		$('#downloader').attr({href:url,download:'peppered'});
+	},
 	render: function () {
+		var self = this;
 		return (
 			<div className="editor-canvas">
-				<EditToolbar/>
 				<div className="underlay">
 					<img className='phone-img' src="/img/iphone.png" alt="" />
 					<canvas id="canvas" width="270" height="480"></canvas>
 				</div>
-	        </div>
+				<a href="#" id="downloader" onClick={this.downloadCanvas.bind(this)}>Download!</a>
+	     </div>
 		)
 	}
 })
