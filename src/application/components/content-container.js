@@ -1,7 +1,18 @@
 var React = require('React');
 var CategoryBar = require('./category-bar');
+var fabricAPI;
 
 var ContentContainer = React.createClass({
+	componentDidUpdate: function (){
+		console.log('updated')
+		if (this.state.fabricAPI){
+			fabricAPI = this.state.fabricAPI
+			console.log('fabric api loaded')
+		} else {
+			fabricAPI = {}
+			console.log('fabric api could not be found!')
+		}
+	},
 	render: function (){
 		return (
 			<div className="content-editor">
@@ -42,7 +53,6 @@ var ContentList = React.createClass({
 	componentDidMount: function() {
 		var self = this;
 		$.get(self.props.source, function(result) {
-			console.log('result',result)
 			if (self.isMounted()) {
 				self.setState({
 					pImage: result
@@ -52,8 +62,6 @@ var ContentList = React.createClass({
 	},
 	render: function() {
 		var images = this.state.pImage || [];
-		console.log('state', this.state)
-		console.log('images',images)
 		return (
 			<ul className="content-list">
 				{images.map(function (image){
