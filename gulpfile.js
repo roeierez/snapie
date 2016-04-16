@@ -1,7 +1,10 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-var react = require('gulp-react');
+
 var babel = require('gulp-babel')
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 var htmlreplace = require('gulp-html-replace');
 var clean = require('gulp-clean');
 var sass  = require('gulp-ruby-sass');
@@ -24,16 +27,17 @@ gulp.task('default', ['replaceHTML', 'build', 'sass']);
 gulp.task('build', ['js', 'replaceHTML', 'sass']);
 
 gulp.task('js', function () {
-  return gulp.src(config.JS)
-    .pipe(babel({
-        only: [
-          'src/application',
-        ],
-        presets: ['react'],
-        compact: false
-      }))
-    .pipe(concat(config.MINIFIED_OUT))
-    .pipe(gulp.dest(config.DEST));
+
+  return browserify(['./src/application/main.js'], {debug: true})
+    .transform('babelify', {presets: ["es2015", "react"]})
+    .bundle()
+    .on('error', function (err){
+      console.log('there was an error')
+      console.error(err)
+    })
+    .pipe(source('main.js'))
+    .pipe(require('gulp-rename')('build.min.js'))
+    .pipe(gulp.dest('./build/js'));
 })
 
 gulp.task('replaceHTML', function(){
