@@ -33,7 +33,7 @@ gulp.task('js', function () {
     .bundle()
     .on('error', function (err){
       console.log('there was an error')
-      console.error(err)
+      console.log(err.toString())
     })
     .pipe(source('main.js'))
     .pipe(require('gulp-rename')('build.min.js'))
