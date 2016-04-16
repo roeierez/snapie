@@ -14,7 +14,7 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/pe
 if (process.env.NODE_ENV==='dev'){
   router.get('/elements', function (req, res){
     // path to graphics
-    var graphics = '[{"source":"/icons/alarm.svg"},{"source":"/icons/apartment.svg"},{"source":"/icons/arrow-down-circle.svg"}]';
+    var graphics = '[{"source":"/icons/alarm.svg"},{"source":"/icons/apartment.svg"},{"source":"/icons/arrow-down-circle.svg"},{"source":"/templates/Birthday.png"}]';
     var arr = JSON.parse(graphics);
     res.json(arr);
   })

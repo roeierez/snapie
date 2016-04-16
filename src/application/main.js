@@ -102,11 +102,21 @@ var ContentItem = React.createClass({
 
 // Fabric Canvas Elements
 var FabricEditor = React.createClass({
-	componentWillMount: function(){
-
-	},
+	getInitialState: function() {
+		// want to initially hide the toolbar until an element is selected
+    return { showToolbar: false };
+  },
+  showToolbar: function(){
+  	this.setState({ showToolbar: true });
+  },
+  hideToolbar: function(){
+  	this.setState({ showToolbar: false });
+  },
 	componentDidMount: function () {
 		canvas = new fabric.Canvas('canvas');
+		// make the tool bar visible when object is selected
+		canvas.observe('object:selected', this.showToolbar);
+		canvas.observe('selection:cleared', this.hideToolbar);
 		console.log('canvas obj',canvas)
 		console.log('fabric obj',fabric)
 		fabricAPI = {
@@ -125,6 +135,7 @@ var FabricEditor = React.createClass({
 		}
 	},
 	downloadCanvas: function(event) {
+		console.log('downloading image');
 		canvas.deactivateAll().renderAll();
 		var url = canvas.toDataURL("png");
 		$('#downloader').attr({href:url,download:'peppered'});
@@ -133,12 +144,14 @@ var FabricEditor = React.createClass({
 		var self = this;
 		return (
 			<div className="editor-canvas">
-				<EditToolbar/>
+
+				{ this.state.showToolbar ? <EditToolbar/> : null }
+				
 				<div className="underlay">
 					<img className='phone-img' src="/img/iphone.png" alt="" />
 					<canvas id="canvas" width="270" height="480"></canvas>
 				</div>
-				<a href="#" id="downloader" onClick={this.downloadCanvas.bind(this)}>Download!</a>
+				<a id="downloader" onClick={this.downloadCanvas.bind(this)}>Download!</a>
 	     </div>
 		)
 	}
