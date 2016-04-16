@@ -102,10 +102,11 @@ var EditToolbar = React.createClass({
 		return (
 			<div className="edit-toolbar">
 				<ul>
-					<li><a onClick={this.sendBack}>Send Back</a></li>
-					<li><a onClick={this.bringForward}>Bring Forward</a></li>
+					<li><a onClick={this.sendBack}>Back</a></li>
+					<li><a onClick={this.bringForward}>Forward</a></li>
 				</ul>
 			</div>
+	
 		)
 	}
 })

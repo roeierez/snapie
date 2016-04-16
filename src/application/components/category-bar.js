@@ -7,19 +7,19 @@ var tabList = [
 	},
 	{
 		title: "Elements",
-		icon: '/img/elements.png'
+		icon: '/img/elements.svg'
 	},
 	{
 		title: "Text",
-		icon: '/img/text.png'
+		icon: '/img/text.svg'
 	},
 	{
 		title: "Custom",
-		icon: '/img/custom.svg'
+		icon: '/img/custommade.svg'
 	},
 	{
 		title: "Animate Yourself",
-		icon: '/img/animate.png'
+		icon: '/img/animate.svg'
 	}
 ]
 
