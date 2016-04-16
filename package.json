@@ -55,6 +55,7 @@
     "browser-sync": "^2.11.2",
     "fs": "0.0.2",
     "globby": "^4.0.0",
+    "gulp-rename": "^1.2.2",
     "pg": "^4.5.3",
     "reactify": "^1.1.1",
     "streamify": "^0.2.5",

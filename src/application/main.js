@@ -102,11 +102,17 @@ var ContentItem = React.createClass({
 
 // Fabric Canvas Elements
 var FabricEditor = React.createClass({
+	componentWillMount: function(){
+
+	},
 	componentDidMount: function () {
+		canvas = new fabric.Canvas('canvas');
+		console.log('canvas obj',canvas)
+		console.log('fabric obj',fabric)
 		fabricAPI = {
 			addImage: function (image) {
-				console.log('url',image.source)
 				fabric.Image.fromURL(image.source, function (img){
+					console.log('url',image.source)
 					img.set({
 						left: canvas.getWidth()/3,
   					top: canvas.getHeight()/2,
@@ -127,6 +133,7 @@ var FabricEditor = React.createClass({
 		var self = this;
 		return (
 			<div className="editor-canvas">
+				<EditToolbar/>
 				<div className="underlay">
 					<img className='phone-img' src="/img/iphone.png" alt="" />
 					<canvas id="canvas" width="270" height="480"></canvas>
@@ -137,19 +144,37 @@ var FabricEditor = React.createClass({
 	}
 })
 
+/*
+ * Toolbar 
+ */
 var EditToolbar = React.createClass({
 	changeColor: function(color){
 		console.log(color)
 		fabricAPI.setActiveColor(color)
 	},
+	sendBack: function(){
+		/*
+		 * Sends currently selected object back
+		 */
+		canvas.getActiveObject().sendBackwards(true);
+		console.log("sending currently selected object backward");
+	},
+	bringForward: function(){
+		/*
+		 * Brings currently selected obect forward
+		 */
+		canvas.getActiveObject().bringForward(true);
+		console.log("sending currently selected object forward");
+	},
 	render: function () {
 		var self = this;
 		return (
-			<ul class="edit-toolbar">
-				<li><a onClick={self.changeColor.bind(self, '#0F0')}>Green</a></li>
-				<li><a onClick={self.changeColor}>Blue</a></li>
-				<li><a onClick={this.changeColor.bind(self, '#F00')}>Red</a></li>
-			</ul>
+			<div className="edit-toolbar">
+				<ul>
+					<li><a onClick={this.sendBack}>Send Back</a></li>
+					<li><a onClick={this.bringForward}>Bring Forward</a></li>
+				</ul>
+			</div>
 		)
 	}
 })
