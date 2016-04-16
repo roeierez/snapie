@@ -7,10 +7,15 @@ var canvas;
 var fabricAPI;
 
 var Editor = React.createClass({
+	componentDidMount: function () {
+		console.log('api...', fabricAPI);
+		console.log('setting component state to', fabricAPI)
+		this.contentContainer.setState({fabricAPI: fabricAPI});
+	},
 	render: function () {
 		return (
 			<div className="application">
-				<ContentContainer/>
+				<ContentContainer ref={(ref) => this.contentContainer = ref}/>
 				<FabricEditor/>
 			</div>
 		);
@@ -69,7 +74,9 @@ var FabricEditor = React.createClass({
 					<img className='phone-img' src="/img/iphone.png" alt="" />
 					<canvas id="canvas" width="270" height="480"></canvas>
 				</div>
-				<a href="#" id="downloader" onClick={this.downloadCanvas}>Download!</a>
+				<div className="download-button">
+					<a href="#" id="downloader" onClick={this.downloadCanvas}>Download!</a>
+	     	</div>
 	     </div>
 		)
 	}
