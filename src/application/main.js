@@ -8,8 +8,6 @@ var fabricAPI;
 
 var Editor = React.createClass({
 	componentDidMount: function () {
-		console.log('api...', fabricAPI);
-		console.log('setting component state to', fabricAPI)
 		this.contentContainer.setState({fabricAPI: fabricAPI});
 	},
 	render: function () {
@@ -104,6 +102,14 @@ var EditToolbar = React.createClass({
 		canvas.getActiveObject().bringForward(true);
 		console.log("sending currently selected object forward");
 	},
+	removeObject: function(){
+		if(canvas.getActiveGroup()){
+      canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
+      canvas.discardActiveGroup().renderAll();
+    } else {
+      canvas.remove(canvas.getActiveObject());
+    }
+	},
 	render: function () {
 		var self = this;
 		return (
@@ -111,6 +117,7 @@ var EditToolbar = React.createClass({
 				<ul>
 					<li><a onClick={this.sendBack}>Back</a></li>
 					<li><a onClick={this.bringForward}>Forward</a></li>
+					<li><a onClick={this.removeObject}>Remove</a></li>
 				</ul>
 			</div>
 	

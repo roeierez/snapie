@@ -17,9 +17,9 @@ var ContentContainer = React.createClass({
 		return (
 			<div className="content-editor">
 				<CategoryBar/>
-                <div className="content-container">
+          <div className="content-container">
 					<FilterContainer/>
-					<ContentList source="/api/elements"/>
+          <ContentList source="/api/elements"/>
 				</div>
 			</div>
 		);
@@ -60,14 +60,19 @@ var ContentList = React.createClass({
 			}
 		}.bind(self));
 	},
+	handleScroll(scrollData){
+    console.log(scrollData);
+  },
 	render: function() {
 		var images = this.state.pImage || [];
+
 		return (
-			<ul className="content-list">
-				{images.map(function (image){
-					return <ContentItem item={image}/>;
-				})}
-			</ul>
+		<ul className="content-list">
+			{images.map(function (image){
+				return <ContentItem item={image}/>;
+			})}
+		</ul>
+			
 		);
 	}
 });
