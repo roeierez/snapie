@@ -82,7 +82,7 @@ var ContentItem = React.createClass({
 	render: function (){
 		var item = this.props.item;
 		return (
-			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.previewSource}/></li>
+			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.preview}/></li>
 		);
 	}
 });
