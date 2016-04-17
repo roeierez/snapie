@@ -3,15 +3,18 @@ var React = require('react')
 var tabList = [
 	{
 		title: "Templates",
-		icon: '/img/templates.svg'
+		icon: '/img/templates.svg',
+		url: '/api/templates'
 	},
 	{
 		title: "Elements",
-		icon: '/img/elements.svg'
+		icon: '/img/elements.svg',
+		url: '/api/elements'
 	},
 	{
 		title: "Text",
-		icon: '/img/text.svg'
+		icon: '/img/text.svg',
+		url: '/api/fonts'
 	},
 	{
 		title: "Custom",
@@ -77,8 +80,10 @@ var CategoryBar = React.createClass({
         };
     },
 	setCategory: function (category) {
+		console.log('props in CategoryBar', this.props)
 		console.log('setting category to ', category);
 		this.setState({ currentTab: category.title });
+		this.props.categoryChanged(category);
 	},
 	render: function (){
 		return (
