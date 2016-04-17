@@ -1,4 +1,4 @@
-var React = require('React');
+var React = require('react');
 var CategoryBar = require('./category-bar');
 var fabricAPI;
 
@@ -27,6 +27,7 @@ var ContentContainer = React.createClass({
 	},
 	fetchItems: function (url) {
 		var self = this;
+		self.list && self.list.setState({images: []})
 		$.get(url, function(result) {
 			console.log('retrieved',result)
 			// This really shouldn't need to be stored directly on the element like this.
@@ -97,7 +98,7 @@ var ContentItem = React.createClass({
 	render: function (){
 		var item = this.props.item;
 		return (
-			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.previewSource}/></li>
+			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.preview}/></li>
 		);
 	}
 });

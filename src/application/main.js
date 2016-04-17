@@ -43,8 +43,8 @@ var FabricEditor = React.createClass({
 		fabricAPI = {
 			addItem: function (image) {
 
-				fabric.Image.fromURL(image.previewSource, function (img){
-					console.log('url',image.previewSource)
+				fabric.Image.fromURL(image.source, function (img){
+					console.log('url',image.source)
 					img.set({
 						left: canvas.getWidth()/3,
   					top: canvas.getHeight()/2,
@@ -55,9 +55,9 @@ var FabricEditor = React.createClass({
 				})
 			},
 			addTemplate: function (image) {
-				fabric.Image.fromURL(image.previewSource, function(img) {
+				fabric.Image.fromURL(image.source, function(img) {
 					img.set({
-						
+
 					})
 					img.scaleToWidth(canvas.getWidth())
 					canvas.setBackgroundImage(img)
