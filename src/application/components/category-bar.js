@@ -9,7 +9,7 @@ var tabList = [
 	},
 	{
 		title: "Elements",
-		type: "icon",
+		type: "element",
 		icon: '/img/elements.svg',
 		url: '/api/elements'
 	},

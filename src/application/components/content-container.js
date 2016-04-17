@@ -1,4 +1,4 @@
-var React = require('React');
+var React = require('react');
 var CategoryBar = require('./category-bar');
 var fabricAPI;
 
@@ -10,10 +10,25 @@ var ContentContainer = React.createClass({
 			fabricAPI = {}
 		}
 	},
-
-	fetchItems: function (category) {
+	addItem: function (item) {
+		if (this.state.category.type==="element") {
+			this.state.fabricAPI.addItem(item)
+		}
+		else if (this.state.category.type==="template"){
+			this.state.fabricAPI.addTemplate(item)
+		}
+		else if (this.state.category.type==="text") {
+			this.state.fabricAPI.addTextBox(text)
+		}
+	},
+	changeCategory: function (category) {
+		this.setState({category: category})
+		this.fetchItems(category.url)
+	},
+	fetchItems: function (url) {
 		var self = this;
-		$.get(category.url, function(result) {
+		self.list && self.list.setState({images: []})
+		$.get(url, function(result) {
 			console.log('retrieved',result)
 			// This really shouldn't need to be stored directly on the element like this.
 			self.list.setState({
@@ -24,10 +39,10 @@ var ContentContainer = React.createClass({
 	render: function (){
 		return (
 			<div className="content-editor">
-				<CategoryBar categoryChanged={this.fetchItems}/>
+				<CategoryBar categoryChanged={this.changeCategory}/>
                 <div className="content-container">
 					<FilterContainer/>
-					<ContentList ref={(ref) => this.list = ref} />
+					<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
 				</div>
 			</div>
 		);
@@ -62,10 +77,11 @@ var ContentList = React.createClass({
 	},
 	render: function() {
 		var images = this.state.images;
+		var self = this;
 		return (
 		<ul className="content-list">
 			{images.map(function (image){
-				return <ContentItem item={image}/>;
+				return <ContentItem clickFunction={self.props.addItem} item={image}/>;
 			})}
 		</ul>
 			
@@ -77,7 +93,7 @@ var ContentItem = React.createClass({
 	handleClick: function (){
 		var item = this.props.item;
 		console.log(item)
-		fabricAPI.addImage(item)
+		this.props.clickFunction(item)
 	},
 	render: function (){
 		var item = this.props.item;
