@@ -1,1 +1,1 @@
-web: ls node_modules && node node_modules/gulp/bin/gulp && node NOD_ENV=dev app.js
+web: ls node_modules && node node_modules/gulp/bin/gulp && NODE_ENV=dev node app.js
