@@ -13,6 +13,14 @@ if (process.env.NODE_ENV==='dev'){
 ////////////////////////////////////////////////////////////////////////////////
 // ELEMENTS
 ////////////////////////////////////////////////////////////////////////////////
+router.get('/elements', function (req, res){
+    // path to graphics
+    var graphics = '[{"name":"bdaybaloon","preview":"/elements/bdaybaloon.svg","source":"/elements/bdaybaloon.svg"}, {"name":"bdaybaloons","preview":"/elements/bdaybaloons.svg","source":"/elements/bdaybaloons.svg"}, {"name":"bdaycake","preview":"/elements/bdaycake.svg","source":"/elements/bdaycake.svg"}, {"name":"bdaygal","preview":"/elements/bdaygal.svg","source":"/elements/bdaygal.svg"}, {"name":"bdayglasses","preview":"/elements/bdayglasses.svg","source":"/elements/bdayglasses.svg"}, {"name":"bdayguy","preview":"/elements/bdayguy.svg","source":"/elements/bdayguy.svg"}, {"name":"bdayhat","preview":"/elements/bdayhat.svg","source":"/elements/bdayhat.svg"}, {"name":"bdayribbon","preview":"/elements/bdayribbon.svg","source":"/elements/bdayribbon.svg"}, {"name":"bg1","preview":"/elements/bg1.svg","source":"/elements/bg1.svg"}, {"name":"bg2","preview":"/elements/bg2.svg","source":"/elements/bg2.svg"}, {"name":"bg3","preview":"/elements/bg3.svg","source":"/elements/bg3.svg"}, {"name":"bg4","preview":"/elements/bg4.svg","source":"/elements/bg4.svg"}, {"name":"bg5","preview":"/elements/bg5.svg","source":"/elements/bg5.svg"}, {"name":"circle","preview":"/elements/circle.svg","source":"/elements/circle.svg"}, {"name":"crown","preview":"/elements/crown.svg","source":"/elements/crown.svg"}, {"name":"cup","preview":"/elements/cup.svg","source":"/elements/cup.svg"}, {"name":"cupcake","preview":"/elements/cupcake.svg","source":"/elements/cupcake.svg"}, {"name":"film","preview":"/elements/film.svg","source":"/elements/film.svg"}, {"name":"fire","preview":"/elements/fire.svg","source":"/elements/fire.svg"}, {"name":"flower","preview":"/elements/flower.svg","source":"/elements/flower.svg"}, {"name":"flowers2","preview":"/elements/flowers2.svg","source":"/elements/flowers2.svg"}, {"name":"free","preview":"/elements/free.svg","source":"/elements/free.svg"}, {"name":"gamecontroller","preview":"/elements/gamecontroller.svg","source":"/elements/gamecontroller.svg"}, {"name":"heart","preview":"/elements/heart.svg","source":"/elements/heart.svg"}, {"name":"itslit","preview":"/elements/itslit.svg","source":"/elements/itslit.svg"}, {"name":"lightning","preview":"/elements/lightning.svg","source":"/elements/lightning.svg"}, {"name":"mac","preview":"/elements/mac.svg","source":"/elements/mac.svg"}, {"name":"shocker","preview":"/elements/shocker.svg","source":"/elements/shocker.svg"}, {"name":"spinningrecord","preview":"/elements/spinningrecord.svg","source":"/elements/spinningrecord.svg"}, {"name":"stars","preview":"/elements/stars.svg","source":"/elements/stars.svg"}, {"name":"stick","preview":"/elements/stick.svg","source":"/elements/stick.svg"}, {"name":"thunder","preview":"/elements/thunder.svg","source":"/elements/thunder.svg"}]';
+
+    var arr = JSON.parse(graphics);
+    res.json(arr);
+});
+/*
 if (process.env.NODE_ENV==='dev'){
   router.get('/elements', function (req, res){
     // path to graphics
@@ -54,7 +62,7 @@ else {
 
     });  
   } );
-}
+}*/
 ////////////////////////////////////////////////////////////////////////////////
 // TEMPLATES
 //
