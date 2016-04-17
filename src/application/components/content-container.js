@@ -64,11 +64,12 @@ var ContentList = React.createClass({
 	render: function() {
 		var images = this.state.images;
 		return (
-			<ul className="content-list">
-				{images.map(function (image){
-					return <ContentItem item={image}/>;
-				})}
-			</ul>
+		<ul className="content-list">
+			{images.map(function (image){
+				return <ContentItem item={image}/>;
+			})}
+		</ul>
+			
 		);
 	}
 });
