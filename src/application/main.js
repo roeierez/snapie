@@ -41,15 +41,26 @@ var FabricEditor = React.createClass({
 		console.log('canvas obj',canvas)
 		console.log('fabric obj',fabric)
 		fabricAPI = {
-			addImage: function (image) {
-				fabric.Image.fromURL(image.source, function (img){
-					console.log('url',image.source)
+			addItem: function (image) {
+
+				fabric.Image.fromURL(image.previewSource, function (img){
+					console.log('url',image.previewSource)
 					img.set({
 						left: canvas.getWidth()/3,
   					top: canvas.getHeight()/2,
 					});
 					img.scaleToHeight(100)
 					canvas.add(img);
+					canvas.renderAll();
+				})
+			},
+			addTemplate: function (image) {
+				fabric.Image.fromURL(image.previewSource, function(img) {
+					img.set({
+						
+					})
+					img.scaleToWidth(canvas.getWidth())
+					canvas.setBackgroundImage(img)
 					canvas.renderAll();
 				})
 			}
