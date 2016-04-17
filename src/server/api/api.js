@@ -14,14 +14,14 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/pe
 if (process.env.NODE_ENV==='dev'){
   router.get('/elements', function (req, res){
     // path to graphics
-    var graphics = '[{"source":"/elements/bdaybaloon.svg"},{"source":"/elements/bdaybaloons.svg"},{"source":"/elements/bdaygal.svg"},{"source":"/elements/bdayglasses.svg"},{"source":"/elements/bdayguy.svg"},{"source":"/elements/bdayhat.svg"},{"source":"/elements/bdayribbon.svg"},{"source":"/elements/bg1.svg"},{"source":"/elements/bg2.svg"},{"source":"/elements/bg3.svg"},{"source":"/elements/bg4.svg"},{"source":"/elements/bg5.svg"},{"source":"/elements/circle.svg"},{"source":"/elements/crown.svg"},{"source":"/elements/cupcake.svg"},{"source":"/elements/heart.svg"}]';
+    var graphics = '[{"previewSource":"/elements/bdaybaloon.svg"},{"previewSource":"/elements/bdaybaloons.svg"},{"previewSource":"/elements/bdaygal.svg"},{"previewSource":"/elements/bdayglasses.svg"},{"previewSource":"/elements/bdayguy.svg"},{"previewSource":"/elements/bdayhat.svg"},{"previewSource":"/elements/bdayribbon.svg"},{"previewSource":"/elements/bg1.svg"},{"previewSource":"/elements/bg2.svg"},{"previewSource":"/elements/bg3.svg"},{"previewSource":"/elements/bg4.svg"},{"previewSource":"/elements/bg5.svg"},{"previewSource":"/elements/circle.svg"},{"previewSource":"/elements/crown.svg"},{"previewSource":"/elements/cupcake.svg"},{"previewSource":"/elements/heart.svg"}]';
     var arr = JSON.parse(graphics);
     res.json(arr);
   })
 }
 else {
   router.get('/elements', function(req, res){
-    // example expected output: [{"id":1,"source":"'/elements/alarms.svg'"},{"id":2,"source":"/elements/apartment.svg"}]
+    // example expected output: [{"id":1,"previewSource":"'/elements/alarms.svg'"},{"id":2,"source":"/elements/apartment.svg"}]
 
     // store database results from query
     var results = [];
@@ -62,7 +62,7 @@ else {
 // http://localhost:8080/api/template?id=4
 router.get('/templates', function(req, res){
   // path to graphics
-  var graphics = '[{"source":"/templates/bachelor.svg"},{"source":"/templates/bachelor_t.svg"},{"source":"/templates/bachelorscrew.svg"},{"source":"/templates/bachelorette.svg"}]';
+  var graphics = '[{"previewSource":"/templates/bachelor.svg"},{"previewSource":"/templates/bachelor_t.svg"},{"previewSource":"/templates/bachelorscrew.svg"},{"previewSource":"/templates/bachelorette.svg"}]';
   var arr = JSON.parse(graphics);
   res.json(arr);
 } );

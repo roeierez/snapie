@@ -21,7 +21,6 @@ var ContentContainer = React.createClass({
 			});
 		}.bind(self))
 	},
-
 	render: function (){
 		return (
 			<div className="content-editor">
@@ -83,7 +82,7 @@ var ContentItem = React.createClass({
 	render: function (){
 		var item = this.props.item;
 		return (
-			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.source}/></li>
+			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.previewSource}/></li>
 		);
 	}
 });

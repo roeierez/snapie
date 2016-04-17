@@ -1,5 +1,6 @@
 $content-editor-width: 648px
 $content-editor-height:650px
+$content-list-height: 480px
 $top-margin: 18px
 $editor-canvas-width: calc(100% - #{$content-editor-width})
 $editor-canvas-color: #F1F1F1
@@ -13,7 +14,7 @@ $phone-width: 320px
 
 $header-height: 60px
 $header-color: #68c4de
-
+$application-height: calc(100% - #{$header-height})
 
 .header
 	width: 100%
@@ -117,7 +118,8 @@ $header-color: #68c4de
 				background-color: white
 				margin: 0 15px
 				width: 490px
-				max-height: 480px
+				min-height: $content-list-height
+				max-height: $content-list-height
 				overflow: scroll
 				overflow-x: hidden
 
