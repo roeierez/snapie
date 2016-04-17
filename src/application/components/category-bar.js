@@ -3,15 +3,21 @@ var React = require('react')
 var tabList = [
 	{
 		title: "Templates",
-		icon: '/img/templates.svg'
+		type: "template",
+		icon: '/img/templates.svg',
+		url: '/api/templates'
 	},
 	{
 		title: "Elements",
-		icon: '/img/elements.svg'
+		type: "icon",
+		icon: '/img/elements.svg',
+		url: '/api/elements'
 	},
 	{
 		title: "Text",
-		icon: '/img/text.svg'
+		type: "text",
+		icon: '/img/text.svg',
+		url: '/api/fonts'
 	},
 	{
 		title: "Custom",
@@ -49,6 +55,7 @@ var Tabs = React.createClass({
     },
     
     render: function(){
+    	console.log(this.props.currentTab)
         return (
         	<nav>
         		<ul>
@@ -59,7 +66,7 @@ var Tabs = React.createClass({
 		                        key={tab.title}
 		                        icon={tab.icon}
 		                        title={tab.title}
-		                        isCurrent={(this.props.currentTab === tab.title)}
+		                        isCurrent={(this.props.currentTab.title === tab.title)}
 		                     />
 		                );
 		            }.bind(this))}
@@ -73,12 +80,17 @@ var CategoryBar = React.createClass({
 	getInitialState: function () {        
         return {
             tabList: tabList,
-            currentTab: 'Templates'
+            currentTab: tabList[0]
         };
     },
 	setCategory: function (category) {
+		console.log('props in CategoryBar', this.props)
 		console.log('setting category to ', category);
-		this.setState({ currentTab: category.title });
+		this.setState({ currentTab: category });
+		this.props.categoryChanged(category);
+	},
+	componentDidMount: function () {
+		this.setCategory(this.state.currentTab);
 	},
 	render: function (){
 		return (

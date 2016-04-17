@@ -4,22 +4,30 @@ var fabricAPI;
 
 var ContentContainer = React.createClass({
 	componentDidUpdate: function (){
-		console.log('updated')
 		if (this.state.fabricAPI){
 			fabricAPI = this.state.fabricAPI
-			console.log('fabric api loaded')
 		} else {
 			fabricAPI = {}
-			console.log('fabric api could not be found!')
 		}
+	},
+
+	fetchItems: function (category) {
+		var self = this;
+		$.get(category.url, function(result) {
+			console.log('retrieved',result)
+			// This really shouldn't need to be stored directly on the element like this.
+			self.list.setState({
+				images: result
+			});
+		}.bind(self))
 	},
 	render: function (){
 		return (
 			<div className="content-editor">
-				<CategoryBar/>
-          <div className="content-container">
+				<CategoryBar categoryChanged={this.fetchItems}/>
+                <div className="content-container">
 					<FilterContainer/>
-          <ContentList source="/api/elements"/>
+					<ContentList ref={(ref) => this.list = ref} />
 				</div>
 			</div>
 		);
@@ -44,28 +52,16 @@ var FilterContainer = React.createClass({
 	}
 
 })
+
 var ContentList = React.createClass({
+	
 	getInitialState: function() {
 		return {
-			pImage: []
+			images: []
 		};
 	},
-	componentDidMount: function() {
-		var self = this;
-		$.get(self.props.source, function(result) {
-			if (self.isMounted()) {
-				self.setState({
-					pImage: result
-				});
-			}
-		}.bind(self));
-	},
-	handleScroll(scrollData){
-    console.log(scrollData);
-  },
 	render: function() {
-		var images = this.state.pImage || [];
-
+		var images = this.state.images;
 		return (
 		<ul className="content-list">
 			{images.map(function (image){
@@ -86,7 +82,7 @@ var ContentItem = React.createClass({
 	render: function (){
 		var item = this.props.item;
 		return (
-			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.source}/></li>
+			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.previewSource}/></li>
 		);
 	}
 });
