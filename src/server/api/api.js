@@ -62,7 +62,7 @@ else {
 // http://localhost:8080/api/template?id=4
 router.get('/templates', function(req, res){
   // path to graphics
-  var graphics = '[{"source":"/templates/Birthday.png"}]';
+  var graphics = '[{"source":"/templates/bachelor.svg"},{"source":"/templates/bachelor_t.svg"},{"source":"/templates/bachelorscrew.svg"},{"source":"/templates/bachelorette.svg"}]';
   var arr = JSON.parse(graphics);
   res.json(arr);
 } );
