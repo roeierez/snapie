@@ -56,9 +56,6 @@ var FabricEditor = React.createClass({
 			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
-					img.set({
-
-					})
 					img.scaleToWidth(canvas.getWidth())
 					canvas.setBackgroundImage(img)
 					canvas.renderAll();
@@ -67,10 +64,79 @@ var FabricEditor = React.createClass({
 		}
 	},
 	downloadCanvas: function(event) {
+		// Objects need to be re-scaled to 1080x1920 before downloading and then reverted back to 270x480 
+		
 		console.log('downloading image');
-		canvas.deactivateAll().renderAll();
+
+		// Here we re-scale the objects in the canvas to Snapchat's geo filter guidelines 1080x1920
+		var factor = 4;
+
+		canvas.setHeight(canvas.getHeight() * factor);
+		canvas.setWidth(canvas.getWidth() * factor);
+		if (canvas.backgroundImage) {
+		    // Need to scale background images as well
+		    var bi = canvas.backgroundImage;
+		    bi.width = bi.width * factor; bi.height = bi.height * factor;
+		}
+		var objects = canvas.getObjects();
+		for (var i in objects) {
+		    var scaleX = objects[i].scaleX;
+		    var scaleY = objects[i].scaleY;
+		    var left = objects[i].left;
+		    var top = objects[i].top;
+
+		    var tempScaleX = scaleX * factor;
+		    var tempScaleY = scaleY * factor;
+		    var tempLeft = left * factor;
+		    var tempTop = top * factor;
+
+		    objects[i].scaleX = tempScaleX;
+		    objects[i].scaleY = tempScaleY;
+		    objects[i].left = tempLeft;
+		    objects[i].top = tempTop;
+
+		    objects[i].setCoords();
+		}
+		canvas.deactivateAll();
+
+		///////////////////////////////////////////////////////
+	
 		var url = canvas.toDataURL("png");
 		$('#downloader').attr({href:url,download:'peppered'});
+
+		///////////////////////////////////////////////////////
+
+		// Here we re-scale the objects in the canvas to 270x480
+		canvas.setHeight(canvas.getHeight() / factor);
+		canvas.setWidth(canvas.getWidth() / factor);
+		if (canvas.backgroundImage) {
+		    // Need to scale background images as well
+		    var bi = canvas.backgroundImage;
+		    bi.width = bi.width / factor; bi.height = bi.height / factor;
+		}
+		var objects = canvas.getObjects();
+		for (var i in objects) {
+		    var scaleX = objects[i].scaleX;
+		    var scaleY = objects[i].scaleY;
+		    var left = objects[i].left;
+		    var top = objects[i].top;
+
+		    var tempScaleX = scaleX / factor;
+		    var tempScaleY = scaleY / factor;
+		    var tempLeft = left / factor;
+		    var tempTop = top / factor;
+
+		    objects[i].scaleX = tempScaleX;
+		    objects[i].scaleY = tempScaleY;
+		    objects[i].left = tempLeft;
+		    objects[i].top = tempTop;
+
+		    objects[i].setCoords();
+		}
+		canvas.renderAll();
+
+		/////////////////////////////////////////////////////////////////////
+
 	},
 	render: function () {
 		var self = this;
