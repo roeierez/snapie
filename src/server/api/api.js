@@ -6,9 +6,12 @@ var pg = require('pg');
 
 // get an instance of the express Router
 var router = express.Router()
+
+/*
 if (process.env.NODE_ENV==='dev'){
   var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/pepper';
 }
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // ELEMENTS
