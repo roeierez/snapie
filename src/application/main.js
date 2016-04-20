@@ -147,12 +147,15 @@ var FabricEditor = React.createClass({
 				
 				<div className="underlay">
 					<img className='phone-img' src="/img/iphone.png" alt="" />
-					<canvas id="canvas" width="270" height="480"></canvas>
+					<canvas id="canvas" width="240" height="420"></canvas>
 				</div>
 				<div className="download-button">
-					<a href="#" id="downloader" onClick={this.downloadCanvas}>Download!</a>
+					<a href="#" id="downloader" onClick={this.downloadCanvas}>Download</a>
 	     	</div>
-	     </div>
+	     	<div className="guidelines">
+	     		<p>Make sure you follow Snapchat's <a href="https://www.snapchat.com/geofilters/tips.html" target="_blank">Guidelines</a></p>
+	     	</div>
+	    </div>
 		)
 	}
 })
