@@ -20,12 +20,22 @@ var tabList = [
 		url: '/api/fonts'
 	},
 	{
+		title: "Upload",
+		type: "transition",
+		icon: "/img/upload.svg",
+		url : "/upload"
+	},
+	{
 		title: "Custom",
-		icon: '/img/custommade.svg'
+		type: "transition",
+		icon: '/img/custommade.svg',
+		url : "/custom"
 	},
 	{
 		title: "Animate Yourself",
-		icon: '/img/animate.svg'
+		type : "transition",
+		icon : '/img/animate.svg',
+		url  : "/animoji"
 	}
 ]
 
@@ -94,7 +104,7 @@ var CategoryBar = React.createClass({
 	},
 	render: function (){
 		return (
-			<div className="sidebar">
+			<div className="categories">
                 <Tabs tabList={this.state.tabList} currentTab={this.state.currentTab} changeTab={this.setCategory}>
                 </Tabs>
             </div>

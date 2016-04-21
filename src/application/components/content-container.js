@@ -22,8 +22,13 @@ var ContentContainer = React.createClass({
 		}
 	},
 	changeCategory: function (category) {
-		this.setState({category: category})
-		this.fetchItems(category.url)
+		if (category.type==="transition"){
+			console.log(category.url);
+		}
+		else {
+			this.setState({category: category})
+			this.fetchItems(category.url)
+		}
 	},
 	fetchItems: function (url) {
 		var self = this;
