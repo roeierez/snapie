@@ -55,11 +55,13 @@ var FabricEditor = React.createClass({
 				})
 			},
 			addTextBox: function(image){
+				// Grab the font name
 				var fontFamily = image.name;
 				var fabicText = new fabric.IText('Pepper is awesome!', {
-		        left: canvas.getWidth()/3,
+		        left: canvas.getWidth()/12,
 		  			top: canvas.getHeight()/2,
-		  			fontFamily: fontFamily
+		  			fontFamily: fontFamily,
+		  			fontSize: 28
 		    })
 		    canvas.add(fabicText);
 			},
