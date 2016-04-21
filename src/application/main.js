@@ -54,6 +54,15 @@ var FabricEditor = React.createClass({
 					canvas.renderAll();
 				})
 			},
+			addTextBox: function(image){
+				var fontFamily = image.name;
+				var fabicText = new fabric.IText('Pepper is awesome!', {
+		        left: canvas.getWidth()/3,
+		  			top: canvas.getHeight()/2,
+		  			fontFamily: fontFamily
+		    })
+		    canvas.add(fabicText);
+			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
 					img.scaleToWidth(canvas.getWidth())
@@ -190,6 +199,36 @@ var EditToolbar = React.createClass({
       canvas.remove(canvas.getActiveObject());
     }
 	},
+	boldText: function(){
+		var obj = canvas.getActiveObject();
+		if (!obj) return;
+		if (obj.fontWeight == 'bold'){
+			obj.setFontWeight('normal');
+		}else{
+			obj.setFontWeight('bold');
+		} 
+		canvas.renderAll();
+	},
+	italicizeText: function(){
+		var obj = canvas.getActiveObject();
+		if (!obj) return;
+		if (obj.fontStyle == 'italic'){
+			obj.setFontStyle('normal');
+		}else{
+			obj.setFontStyle('italic');
+		} 
+		canvas.renderAll();
+	},
+	underlineText: function(){
+		var obj = canvas.getActiveObject();
+		if (!obj) return;
+		if (obj.textDecoration == 'underline'){
+			obj.setTextDecoration('normal');
+		}else{
+			obj.setTextDecoration('underline');
+		}
+		canvas.renderAll();
+	},
 	render: function () {
 		var self = this;
 		return (
@@ -198,6 +237,9 @@ var EditToolbar = React.createClass({
 					<li><a onClick={this.sendBack}>Back</a></li>
 					<li><a onClick={this.bringForward}>Forward</a></li>
 					<li><a onClick={this.removeObject}>Remove</a></li>
+					<li><a onClick={this.boldText}>Bold</a></li>
+					<li><a onClick={this.italicizeText}>Italic</a></li>
+					<li><a onClick={this.underlineText}>Underline</a></li>
 				</ul>
 			</div>
 	

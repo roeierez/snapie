@@ -76,4 +76,20 @@ router.get('/templates', function(req, res){
   res.json(arr);
 } );
 
+////////////////////////////////////////////////////////////////////////////////
+// FONTS
+//
+// TODO: set this up properly
+////////////////////////////////////////////////////////////////////////////////
+
+// more routes for our API will happen here
+// http://localhost:8080/api/template?id=4
+router.get('/fonts', function(req, res){
+  // path to graphics
+  var graphics = '[{"name":"Kinescope","preview":"/fonts/Kinescope.png","source":"/fonts/Kinescope.png"}]';
+
+  var arr = JSON.parse(graphics);
+  res.json(arr);
+} );
+
 module.exports = router;

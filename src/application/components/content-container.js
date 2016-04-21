@@ -18,7 +18,7 @@ var ContentContainer = React.createClass({
 			this.state.fabricAPI.addTemplate(item)
 		}
 		else if (this.state.category.type==="text") {
-			this.state.fabricAPI.addTextBox(text)
+			this.state.fabricAPI.addTextBox(item)
 		}
 	},
 	changeCategory: function (category) {
