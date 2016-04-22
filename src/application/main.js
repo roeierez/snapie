@@ -175,10 +175,6 @@ var FabricEditor = React.createClass({
  * Toolbar 
  */
 var EditToolbar = React.createClass({
-	changeColor: function(color){
-		console.log(color)
-		fabricAPI.setActiveColor(color)
-	},
 	sendBack: function(){
 		/*
 		 * Sends currently selected object back
@@ -231,20 +227,35 @@ var EditToolbar = React.createClass({
 		}
 		canvas.renderAll();
 	},
+	changeColor: function(value){
+		console.log(value);
+    var activeObject = canvas.getActiveObject();
+   	activeObject.setColor(value);
+    canvas.renderAll();
+	},
 	render: function () {
 		var self = this;
 		return (
 			<div className="edit-toolbar">
+			{
+				canvas.getActiveObject().isType('i-text') 
+				?
+					<ul>
+						<li><a onClick={this.sendBack}>Back</a></li>
+						<li><a onClick={this.bringForward}>Forward</a></li>
+						<li><a onClick={this.removeObject}>Remove</a></li>
+				    <li><a onClick={this.boldText}>Bold</a></li>
+						<li><a onClick={this.italicizeText}>Italic</a></li>
+						<li><a onClick={this.underlineText}>Underline</a></li> 
+					</ul>
+				: 
 				<ul>
-					<li><a onClick={this.sendBack}>Back</a></li>
-					<li><a onClick={this.bringForward}>Forward</a></li>
-					<li><a onClick={this.removeObject}>Remove</a></li>
-					<li><a onClick={this.boldText}>Bold</a></li>
-					<li><a onClick={this.italicizeText}>Italic</a></li>
-					<li><a onClick={this.underlineText}>Underline</a></li>
+						<li><a onClick={this.sendBack}>Back</a></li>
+						<li><a onClick={this.bringForward}>Forward</a></li>
+						<li><a onClick={this.removeObject}>Remove</a></li>
 				</ul>
-			</div>
-	
+			}
+			</div> 
 		)
 	}
 })
