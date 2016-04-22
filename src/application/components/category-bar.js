@@ -7,7 +7,7 @@ var tabList = [
 		type  : "template",
 		icon  : '/img/templates.svg',
 		url   : '/api/templates',
-		state : '/templates'
+		state : '/'
 	},
 	{
 		title : "Elements",
@@ -67,18 +67,11 @@ var Tabs = React.createClass({
         		<ul>
 		            {this.props.tabList.map(function(tab) {
 		                return (
-		                	<Link key={tab.title} to={tab.state}>
+		                	<Link key={tab.title} activeClassName="active" to={tab.state}>
 								<li>
 										<img src={tab.icon}/><br/>{tab.title}
 								</li>
 							</Link>
-		                    // <
-		                    //     handleClick={this.handleClick.bind(this, tab)}
-		                    //     key={tab.title}
-		                    //     icon={tab.icon}
-		                    //     title={tab.title}
-		                    //     isCurrent={(this.props.currentTab.title === tab.title)}
-		                    //  />
 		                );
 		            }.bind(this))}
 	            </ul>

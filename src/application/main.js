@@ -7,13 +7,15 @@ var canvas;
 var fabricAPI;
 
 var Root = React.createClass({
+	componentDidMount: function () {
+		this.setState({fabricAPI: fabricAPI});
+	},
 	render: function () {
 		return (
 			<Router history={hashHistory}>
 				<Route path="/" component={MainLayout}>
 					<Route component={ContentEditorLayout}>
 						<IndexRoute component={TemplateView}/>
-						<Route path="templates" component={TemplateView}/>
 						<Route path="elements" component={ElementView}/>
 						<Route path="text" component={FontView}/>
 					</Route>

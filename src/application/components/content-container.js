@@ -6,6 +6,9 @@ var fabricAPI;
 
 var ContentEditorLayout = React.createClass({
 	componentDidUpdate: function (){
+		if (this.props.fabricApi){
+			console.log(this.props.fabricApi)
+		}
 		if (this.state.fabricAPI){
 			fabricAPI = this.state.fabricAPI
 		} else {
@@ -14,13 +17,13 @@ var ContentEditorLayout = React.createClass({
 	},
 	addItem: function (item) {
 		if (this.state.category.type==="element") {
-			this.state.fabricAPI.addItem(item)
+			this.props.fabricAPI.addItem(item)
 		}
 		else if (this.state.category.type==="template"){
-			this.state.fabricAPI.addTemplate(item)
+			this.props.fabricAPI.addTemplate(item)
 		}
 		else if (this.state.category.type==="text") {
-			this.state.fabricAPI.addTextBox(text)
+			this.props.fabricAPI.addTextBox(text)
 		}
 	},
 	changeCategory: function (category) {
@@ -31,6 +34,13 @@ var ContentEditorLayout = React.createClass({
 			this.setState({category: category})
 			this.fetchItems(category.url)
 		}
+	},
+	renderChildren: function () {
+		return React.Children.map(this.props.children, function (child) {
+			return React.cloneElement(child, {
+				addItem: this.addItem
+			})
+		}.bind(this))
 	},
 	fetchItems: function (url) {
 		var self = this;
@@ -47,7 +57,7 @@ var ContentEditorLayout = React.createClass({
 		return (
 			<div className="content-editor">
 				<CategoryBar categoryChanged={this.changeCategory}/>
-				{this.props.children}
+				{this.renderChildren()}
 			</div>
 			/*<div className="content-editor">
 				<CategoryBar categoryChanged={this.changeCategory}/>
@@ -79,7 +89,57 @@ var TemplateView = React.createClass({
 		return (
 			<div className="content-container">
 				<FilterContainer/>
-				<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
+				<ContentList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
+			</div>
+		)
+	}
+})
+
+var ElementView = React.createClass({
+	fetchItems: function (url) {
+		var self = this;
+		self.list && self.list.setState({images: []})
+		$.get(url, function(result) {
+			console.log('retrieved',result)
+			// This really shouldn't need to be stored directly on the element like this.
+			self.list && self.list.setState({
+				images: result
+			});
+		}.bind(self))
+	},
+	componentDidMount : function () {
+		this.fetchItems('/api/elements')
+	},
+	render: function () {
+		return (
+			<div className="content-container">
+				<FilterContainer/>
+				<ContentList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
+			</div>
+		)
+	}
+})
+
+var FontView = React.createClass({
+	fetchItems: function (url) {
+		var self = this;
+		self.list && self.list.setState({images: []})
+		$.get(url, function(result) {
+			console.log('retrieved',result)
+			// This really shouldn't need to be stored directly on the element like this.
+			self.list && self.list.setState({
+				images: result
+			});
+		}.bind(self))
+	},
+	componentDidMount : function () {
+		this.fetchItems('/api/fonts')
+	},
+	render: function () {
+		return (
+			<div className="content-container">
+				<FilterContainer/>
+				<ContentList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
 			</div>
 		)
 	}
@@ -101,7 +161,6 @@ var FilterContainer = React.createClass({
 			</div>
 		)
 	}
-
 })
 
 var ContentList = React.createClass({
@@ -142,8 +201,8 @@ var ContentItem = React.createClass({
 module.exports = {
 	ContentEditorLayout: ContentEditorLayout,
 	TemplateView: TemplateView,
-	ElementView: null,
-	FontView: null
+	ElementView: ElementView,
+	FontView: FontView
 };
 
 
