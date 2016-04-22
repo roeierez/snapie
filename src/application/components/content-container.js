@@ -2,7 +2,9 @@ var React = require('react');
 var CategoryBar = require('./category-bar');
 var fabricAPI;
 
-var ContentContainer = React.createClass({
+// This Layout will contain all of the contentEditor components
+
+var ContentEditorLayout = React.createClass({
 	componentDidUpdate: function (){
 		if (this.state.fabricAPI){
 			fabricAPI = this.state.fabricAPI
@@ -36,7 +38,7 @@ var ContentContainer = React.createClass({
 		$.get(url, function(result) {
 			console.log('retrieved',result)
 			// This really shouldn't need to be stored directly on the element like this.
-			self.list.setState({
+			self.list && self.list.setState({
 				images: result
 			});
 		}.bind(self))
@@ -45,12 +47,41 @@ var ContentContainer = React.createClass({
 		return (
 			<div className="content-editor">
 				<CategoryBar categoryChanged={this.changeCategory}/>
+				{this.props.children}
+			</div>
+			/*<div className="content-editor">
+				<CategoryBar categoryChanged={this.changeCategory}/>
                 <div className="content-container">
 					<FilterContainer/>
 					<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
 				</div>
-			</div>
+			</div>*/
 		);
+	}
+})
+
+var TemplateView = React.createClass({
+	fetchItems: function (url) {
+		var self = this;
+		self.list && self.list.setState({images: []})
+		$.get(url, function(result) {
+			console.log('retrieved',result)
+			// This really shouldn't need to be stored directly on the element like this.
+			self.list && self.list.setState({
+				images: result
+			});
+		}.bind(self))
+	},
+	componentDidMount : function () {
+		this.fetchItems('/api/templates')
+	},
+	render: function () {
+		return (
+			<div className="content-container">
+				<FilterContainer/>
+				<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
+			</div>
+		)
 	}
 })
 
@@ -108,6 +139,11 @@ var ContentItem = React.createClass({
 	}
 });
 
-module.exports = ContentContainer;
+module.exports = {
+	ContentEditorLayout: ContentEditorLayout,
+	TemplateView: TemplateView,
+	ElementView: null,
+	FontView: null
+};
 
 

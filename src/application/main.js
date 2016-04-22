@@ -1,10 +1,48 @@
 var React = require('react');
 var ReactDOM = require('react-dom')
-
-var ContentContainer = require('./components/content-container.js')
+import {Router, Route, IndexRoute, Link, hashHistory} from 'react-router'
+import {ContentEditorLayout, TemplateView, ElementView, FontView} from './components/content-container.js'
 
 var canvas;
 var fabricAPI;
+
+var Root = React.createClass({
+	render: function () {
+		return (
+			<Router history={hashHistory}>
+				<Route path="/" component={MainLayout}>
+					<Route component={ContentEditorLayout}>
+						<IndexRoute component={TemplateView}/>
+						<Route path="templates" component={TemplateView}/>
+						<Route path="elements" component={ElementView}/>
+						<Route path="text" component={FontView}/>
+					</Route>
+				</Route>
+			</Router>
+		)
+	}
+})
+
+var MainLayout = React.createClass({
+	render: function () {
+		return (
+			<div className="application">
+				{this.props.children}
+				<FabricEditor/>
+			</div>
+		)
+	}
+})
+
+// This Layout will contain all of the FabricEditor components
+var FabricEditorLayout = React.createClass({
+	render: function () {
+		<FabricEditor/>
+	}
+})
+
+
+
 
 var Editor = React.createClass({
 	componentDidMount: function () {
@@ -211,7 +249,7 @@ var EditToolbar = React.createClass({
 // Bootstrapping the application
 
 ReactDOM.render(
-	<Editor/>,
+	<Root/>,
 	document.getElementById('editor')
 );
 

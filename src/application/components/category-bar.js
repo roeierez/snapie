@@ -1,41 +1,45 @@
 var React = require('react')
+import {Link} from 'react-router'
 
 var tabList = [
 	{
-		title: "Templates",
-		type: "template",
-		icon: '/img/templates.svg',
-		url: '/api/templates'
+		title : "Templates",
+		type  : "template",
+		icon  : '/img/templates.svg',
+		url   : '/api/templates',
+		state : '/templates'
 	},
 	{
-		title: "Elements",
-		type: "element",
-		icon: '/img/elements.svg',
-		url: '/api/elements'
+		title : "Elements",
+		type  : "element",
+		icon  : '/img/elements.svg',
+		url   : '/api/elements',
+		state : '/elements'
 	},
 	{
-		title: "Text",
-		type: "text",
-		icon: '/img/text.svg',
-		url: '/api/fonts'
+		title : "Text",
+		type  : "text",
+		icon  : '/img/text.svg',
+		url   : '/api/fonts',
+		state : '/text'
 	},
 	{
-		title: "Upload",
-		type: "transition",
-		icon: "/img/upload.svg",
-		url : "/upload"
+		title : "Upload",
+		type  : "transition",
+		icon  : "/img/upload.svg",
+		state : "/upload"
 	},
 	{
-		title: "Custom",
-		type: "transition",
-		icon: '/img/custommade.svg',
-		url : "/custom"
+		title : "Custom",
+		type  : "transition",
+		icon  : '/img/custommade.svg',
+		state : "/custom"
 	},
 	{
-		title: "Animate Yourself",
-		type : "transition",
-		icon : '/img/animate.svg',
-		url  : "/animoji"
+		title : "Animate Yourself",
+		type  : "transition",
+		icon  : '/img/animate.svg',
+		state : "/animoji"
 	}
 ]
 
@@ -50,20 +54,12 @@ var Tab = React.createClass({
     	var icon = this.props.icon;
     	var title = this.props.title;
         return (
-        	<a onClick={self.handleClick} href='#'>
-			<li className={self.props.isCurrent ? 'active' : 'inactive'} onClick={self.props.action}>
-					<img src={self.props.icon}/><br/>{self.props.title}
-			</li>
-			</a>
+        	<Link to=""/>
         );
     }
 });
 
 var Tabs = React.createClass({
-    handleClick: function(tab){
-        this.props.changeTab(tab);
-    },
-    
     render: function(){
     	console.log(this.props.currentTab)
         return (
@@ -71,13 +67,18 @@ var Tabs = React.createClass({
         		<ul>
 		            {this.props.tabList.map(function(tab) {
 		                return (
-		                    <Tab
-		                        handleClick={this.handleClick.bind(this, tab)}
-		                        key={tab.title}
-		                        icon={tab.icon}
-		                        title={tab.title}
-		                        isCurrent={(this.props.currentTab.title === tab.title)}
-		                     />
+		                	<Link key={tab.title} to={tab.state}>
+								<li>
+										<img src={tab.icon}/><br/>{tab.title}
+								</li>
+							</Link>
+		                    // <
+		                    //     handleClick={this.handleClick.bind(this, tab)}
+		                    //     key={tab.title}
+		                    //     icon={tab.icon}
+		                    //     title={tab.title}
+		                    //     isCurrent={(this.props.currentTab.title === tab.title)}
+		                    //  />
 		                );
 		            }.bind(this))}
 	            </ul>
@@ -105,7 +106,7 @@ var CategoryBar = React.createClass({
 	render: function (){
 		return (
 			<div className="categories">
-                <Tabs tabList={this.state.tabList} currentTab={this.state.currentTab} changeTab={this.setCategory}>
+                <Tabs tabList={this.state.tabList} currentTab={this.state.currentTab}>
                 </Tabs>
             </div>
         )
