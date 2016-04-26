@@ -227,12 +227,6 @@ var EditToolbar = React.createClass({
 		}
 		canvas.renderAll();
 	},
-	changeColor: function(value){
-		console.log(value);
-    var activeObject = canvas.getActiveObject();
-   	activeObject.setColor(value);
-    canvas.renderAll();
-	},
 	render: function () {
 		var self = this;
 		return (
@@ -247,6 +241,7 @@ var EditToolbar = React.createClass({
 				    <li><a onClick={this.boldText}>Bold</a></li>
 						<li><a onClick={this.italicizeText}>Italic</a></li>
 						<li><a onClick={this.underlineText}>Underline</a></li> 
+						<li><ColorSelector/></li>
 					</ul>
 				: 
 				<ul>
@@ -260,8 +255,18 @@ var EditToolbar = React.createClass({
 	}
 })
 
-
-
+var ColorSelector = React.createClass({
+  changeTextColor: function(event){
+    var activeObject = canvas.getActiveObject();
+   	activeObject.setColor(event.target.value);
+    canvas.renderAll();
+	},
+  render: function() {
+    return (
+      <input type="color" onChange={this.changeTextColor}/>
+    );
+  }
+})
 
 // Bootstrapping the application
 

@@ -86,7 +86,7 @@ router.get('/templates', function(req, res){
 // http://localhost:8080/api/template?id=4
 router.get('/fonts', function(req, res){
   // path to graphics
-  var graphics = '[{"name":"Kinescope","preview":"/fonts/Kinescope.png","source":"/fonts/Kinescope.png"}, {"name":"Blenny","preview":"/fonts/Blenny.png","source":"/fonts/Blenny.png"}, {"name":"Kepler Std Semicondense ","preview":"/fonts/KeplerStdSemicondense.png","source":"/fonts/KeplerStdSemicondense.png"}, {"name":"Bickham Script Pro 3","preview":"/fonts/BickhamScriptPro3.png","source":"/fonts/BickhamScriptPro3.png"}]';
+  var graphics = '[{"name":"Kinescope","preview":"/fonts/Kinescope.png","source":"/fonts/Kinescope.png"}, {"name":"Blenny","preview":"/fonts/Blenny.png","source":"/fonts/Blenny.png"}, {"name":"Kepler Std Semicondense ","preview":"/fonts/KeplerStdSemicondense.png","source":"/fonts/KeplerStdSemicondense.png"}, {"name":"Bickham Script Pro 3 Regular","preview":"/fonts/BickhamScriptPro3.png","source":"/fonts/BickhamScriptPro3.png"}]';
 
   var arr = JSON.parse(graphics);
   res.json(arr);
