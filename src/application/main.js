@@ -20,7 +20,6 @@ var Editor = React.createClass({
 	}
 })
 
-
 // Fabric Canvas Elements
 var FabricEditor = React.createClass({
 	getInitialState: function() {
