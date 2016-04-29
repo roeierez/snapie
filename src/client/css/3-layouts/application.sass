@@ -1,5 +1,5 @@
 $content-editor-width: 648px
-$content-editor-height:650px
+$content-editor-height:620px
 $content-list-height: 480px
 $top-margin: 18px
 $editor-canvas-width: calc(100% - #{$content-editor-width})
@@ -13,14 +13,14 @@ $font-color: #99979e
 $phone-width: 280px
 
 $header-height: 60px
-$header-color: #68c4de
+$header-color: #FFFFFF
 $application-height: calc(100% - #{$header-height})
 
 .header
 	width: 100%
 	height: $header-height
 	background-color: $header-color
-	color: white
+	color: black
 	font-family: $globalfont
 	line-height: 60px
 	.caption
@@ -132,15 +132,16 @@ $application-height: calc(100% - #{$header-height})
 	.editor-canvas
 		float: right  
 		width: $editor-canvas-width
+		height: $content-editor-height
 		overflow: hidden
+		background-color: $editor-canvas-color
 
 		.edit-toolbar
 			position: relative
 			float: left
-			margin: 10px
+			margin: 15px 10px 10px 10px 
 			padding: 5px 
-			background-color: lightgrey
-			border-radius: 5px
+			background-color: #FFFFFF
 
 		.underlay
 			width: $phone-width

@@ -79,7 +79,10 @@ var FabricEditor = React.createClass({
 		console.log('downloading image');
 
 		// Here we re-scale the objects in the canvas to Snapchat's geo filter guidelines 1080x1920
-		var factor = 4;
+		var factor = 4.5;
+
+		console.log('canvas height:', canvas.getHeight())
+		console.log('canvas width:', canvas.getWidth())
 
 		canvas.setHeight(canvas.getHeight() * factor);
 		canvas.setWidth(canvas.getWidth() * factor);
@@ -206,6 +209,7 @@ var EditToolbar = React.createClass({
 		} 
 		canvas.renderAll();
 	},
+	/*
 	italicizeText: function(){
 		var obj = canvas.getActiveObject();
 		if (!obj) return;
@@ -226,6 +230,7 @@ var EditToolbar = React.createClass({
 		}
 		canvas.renderAll();
 	},
+	*/
 	clearBackground: function(){
 		canvas.backgroundImage = null;
 		canvas.renderAll();
@@ -235,13 +240,11 @@ var EditToolbar = React.createClass({
 		return (
 			<div className="edit-toolbar">
 				<ul>
-					<li><a onClick={this.clearBackground}>Remove Template</a></li> 
 					<li><a onClick={this.sendBack}>Back</a></li>
 					<li><a onClick={this.bringForward}>Forward</a></li>
-					<li><a onClick={this.removeObject}>Remove</a></li>
+					<li><a onClick={this.clearBackground}>Remove Template</a></li> 
+					<li><a onClick={this.removeObject}>Delete</a></li>
 			    <li><a onClick={this.boldText}>Bold</a></li>
-					<li><a onClick={this.italicizeText}>Italic</a></li>
-					<li><a onClick={this.underlineText}>Underline</a></li> 
 					<li><ColorSelector/></li>
 				</ul>
 			</div> 
