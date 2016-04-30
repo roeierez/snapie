@@ -300,22 +300,21 @@ var EditToolbar = React.createClass({
 		}
 		canvas.renderAll();
 	},
-	*/
 	clearBackground: function(){
 		canvas.backgroundImage = null;
 		canvas.renderAll();
 	},
+	*/
 	render: function () {
 		var self = this;
 		return (
 			<div className="edit-toolbar">
 				<ul>
-					<li><a onClick={this.sendBack}>Back</a></li>
-					<li><a onClick={this.bringForward}>Forward</a></li>
-					<li><a onClick={this.clearBackground}>Remove Template</a></li> 
-					<li><a onClick={this.removeObject}>Delete</a></li>
-			    <li><a onClick={this.boldText}>Bold</a></li>
+					<li><a onClick={this.sendBack}><img src="/toolbar_icons/up.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.bringForward}><img src="/toolbar_icons/down.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.removeObject}><img src="/toolbar_icons/trash.svg" height="42" width="42"/></a></li>
 					<li><ColorSelector/></li>
+					<li><a onClick={this.boldText}><img src="/toolbar_icons/bold.svg" height="42" width="42"/></a></li>
 				</ul>
 			</div> 
 		)

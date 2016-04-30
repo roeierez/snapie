@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="34px" viewBox="0 0 20 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>up-arrow--thin-</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Templates-Screen-Alternative" transform="translate(-717.000000, -94.000000)" fill="#8A959E">
+            <g id="up-arrow--thin-" transform="translate(717.000000, 94.000000)">
+                <path d="M10,0 C9.724,0 9.473,0.112 9.293,0.294 L0.295,9.292 C0.114,9.473 0,9.723 0,10 C0,10.553 0.448,11 1,11 C1.278,11 1.528,10.888 1.709,10.706 L9,3.414 L9,33 C9,33.553 9.448,34 10,34 C10.553,34 11,33.553 11,33 L11,3.414 L18.291,10.706 C18.473,10.888 18.723,11 19,11 C19.553,11 20,10.553 20,10 C20,9.723 19.887,9.473 19.705,9.292 L10.707,0.294 C10.528,0.112 10.277,0 10,0 L10,0 Z" id="i-1060"></path>
+            </g>
+        </g>
+    </g>
+</svg>
