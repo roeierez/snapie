@@ -6,6 +6,79 @@ var ContentContainer = require('./components/content-container.js')
 var canvas;
 var fabricAPI;
 
+////////////////////////////////////////////////////////////////////////////////
+// THIS SHOULD BE PLACED IN A SEPARATE FILE IN THE FUTURE
+/**
+ * These functions will handle the following supported keyboard events:
+ * CTRL + Z -> Undo last edit
+ * CTRL + X -> Redo last edit
+ * del -> delete selected active object
+ **/
+
+// dd event listeners
+window.addEventListener("keydown", KeyPressed, false);
+window.addEventListener("keyup", keyReleased, false);
+
+// store keys pressed
+var keys = [];
+function KeyPressed(e) {
+  keys[e.keyCode] = true;
+  // Undo when Ctrl + z pressed
+  if (keys[17] && keys[90]) {
+      console.log("Undo");
+      replay(undo, redo);
+  }
+  
+  // Redo when Ctrl + x pressed
+   if (keys[17] && keys[88]) {
+      console.log("Undo");
+      replay(redo, undo);
+  }
+
+  // delete active element when delete key is pressed
+  if (keys[8]) {
+      event.preventDefault(); 
+      if(canvas.getActiveGroup()){
+	      canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
+	      canvas.discardActiveGroup().renderAll();
+	    } else {
+	      canvas.remove(canvas.getActiveObject());
+	    }
+  }
+}
+function keyReleased(e) {
+    // mark keys that were released
+    keys[e.keyCode] = false;
+}
+
+// current unsaved state
+var state;
+ // past states
+var undo = [];
+ // reverted states
+var redo = [];
+
+// Push the current state into the undo stack and then capture the current state
+function save() {
+  // clear the redo stack
+  redo = [];
+  if (state) {
+    undo.push(state);
+  }
+  state = JSON.stringify(canvas);
+}
+
+function replay(playStack, saveStack) {
+  saveStack.push(state);
+  state = playStack.pop();
+  canvas.clear();
+  canvas.loadFromJSON(state, function() {
+    canvas.renderAll();
+  });
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 var Editor = React.createClass({
 	componentDidMount: function () {
 		this.contentContainer.setState({fabricAPI: fabricAPI});
@@ -22,23 +95,16 @@ var Editor = React.createClass({
 
 // Fabric Canvas Elements
 var FabricEditor = React.createClass({
-	getInitialState: function() {
-		// want to initially hide the toolbar until an element is selected
-    return { showToolbar: false };
-  },
-  showToolbar: function(){
-  	this.setState({ showToolbar: true });
-  },
-  hideToolbar: function(){
-  	this.setState({ showToolbar: false });
-  },
 	componentDidMount: function () {
 		canvas = new fabric.Canvas('canvas');
-		// make the tool bar visible when object is selected
-		canvas.observe('object:selected', this.showToolbar);
-		canvas.observe('selection:cleared', this.hideToolbar);
-		console.log('canvas obj',canvas)
-		console.log('fabric obj',fabric)
+		
+		// save initial state
+    save();
+    // register event listener for user's actions
+    canvas.observe('object:modified', function() {
+    	save();
+    });
+
 		fabricAPI = {
 			addItem: function (image) {
 
@@ -150,6 +216,9 @@ var FabricEditor = React.createClass({
 
 		/////////////////////////////////////////////////////////////////////
 
+		// open geofilter submission in new tab
+		window.open('https://www.snapchat.com/geofilters/submit.html', '_blank');
+
 	},
 	render: function () {
 		var self = this;
@@ -172,6 +241,7 @@ var FabricEditor = React.createClass({
 		)
 	}
 })
+
 
 /*
  * Toolbar 
@@ -264,6 +334,7 @@ var ColorSelector = React.createClass({
     );
   }
 })
+
 
 // Bootstrapping the application
 
