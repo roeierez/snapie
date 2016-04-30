@@ -20,12 +20,6 @@ var tabList = [
 		url: '/api/fonts'
 	},
 	{
-		title: "Upload",
-		type: "transition",
-		icon: "/img/upload.svg",
-		url : "/upload"
-	},
-	{
 		title: "Custom",
 		type: "transition",
 		icon: '/img/custommade.svg',
