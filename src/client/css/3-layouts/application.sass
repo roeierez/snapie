@@ -10,7 +10,7 @@ $items-width: calc(#{$content-editor-width} - #{$categories-width})
 $tags-height: 69px
 $globalfont: Gotham, Helvetica
 $font-color: #99979e
-$phone-width: 280px
+$phone-width: 265px
 
 $header-height: 60px
 $header-color: #FFFFFF
@@ -55,7 +55,7 @@ $application-height: calc(100% - #{$header-height})
 		width: $content-editor-width
 
 		.categories
-			background-color: #f2f2f2
+			background-color: #F0EEEE
 			position: absolute
 			height: 100%
 
@@ -64,8 +64,6 @@ $application-height: calc(100% - #{$header-height})
 				width: 100px
 				text-align: center
 				height: 100px
-				border-top: solid 1px #d6dcdf
-				border-right: solid 1px #d6dcdf
 				text-transform: uppercase
 				font-size: 12px
 				color: $font-color
@@ -79,13 +77,11 @@ $application-height: calc(100% - #{$header-height})
 			li:hover
 				background-color: lightgrey
 			li.active
-				background-color: grey
+				background-color: #D3D3D3
 				
 			
 			li:last-child
 				padding-top: 20px
-				border-bottom: solid 1px #d3d9f5
-				border-right: solid 1px #d3d9f5
 
 		.content-container
 			width: $items-width
@@ -171,12 +167,12 @@ $application-height: calc(100% - #{$header-height})
 
 		.download-button
 			margin: 72px auto auto
-			background-color: lightgrey
-			border-radius: 5px
+			background-color: #FF3366
 			width: 125px
 			padding: 5px
 			a
 				margin-left: 20px
+				color: white
 
 		.guidelines
 			text-align: center
