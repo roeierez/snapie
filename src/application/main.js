@@ -229,7 +229,7 @@ var FabricEditor = React.createClass({
 				
 				<div className="underlay">
 					<img className='phone-img' src="/img/iphone.png" alt="" />
-					<canvas id="canvas" width="240" height="420"></canvas>
+					<canvas id="canvas" width="225" height="400"></canvas>
 				</div>
 				<div className="download-button">
 					<a href="#" id="downloader" onClick={this.downloadCanvas}>Download</a>
