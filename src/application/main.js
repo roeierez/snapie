@@ -334,7 +334,6 @@ var ColorSelector = React.createClass({
   }
 })
 
-
 // Bootstrapping the application
 
 ReactDOM.render(
