@@ -1,20 +1,38 @@
+$header-height: 60px
+$header-color: #FFFFFF
+$application-height: calc(100% - #{$header-height})
+
 $content-editor-width: 648px
-$content-editor-height:620px
-$content-list-height: 480px
+$content-editor-height: 100% 
+
+$categories-width: 170px
+$categories-bg-color: lightgray
+$categories-height: $content-editor-height
+
+$content-container-height: calc(100% - #{$header-height})
+$filter-container-height: 100px
+$content-list-container-height: calc(100% - #{130px})
+$content-list-height: 100%
+
 $top-margin: 18px
 $editor-canvas-width: calc(100% - #{$content-editor-width})
 $editor-canvas-color: #F1F1F1
-$categories-width: 170px
-$categories-bg-color: lightgray
+$editor-canvas-height: 100%
+
 $items-width: calc(#{$content-editor-width} - #{$categories-width})
 $tags-height: 69px
 $globalfont: Gotham, Helvetica
 $font-color: #99979e
-$phone-width: 265px
 
-$header-height: 60px
-$header-color: #FFFFFF
-$application-height: calc(100% - #{$header-height})
+$phone-width: 265px
+$phone-padding: 10px
+
+
+html
+	height: 100%
+
+body 
+	height: 100%
 
 .header
 	width: 100%
@@ -45,11 +63,18 @@ $application-height: calc(100% - #{$header-height})
 	top: 60px
 	right: 0px
 	background-color: #f2f2f2
+
+#editor
+	height: 100%
+
 .application
 	width: 100%
+	height: 100%
+
 	.content-editor
 		position: absolute
 		float: left
+		min-height: 620px
 		height: $content-editor-height
 		background-color: #F1F1F1
 		width: $content-editor-width
@@ -57,7 +82,7 @@ $application-height: calc(100% - #{$header-height})
 		.categories
 			background-color: #F0EEEE
 			position: absolute
-			height: 100%
+			height: $categories-height
 
 			li 
 				padding-top: 20px
@@ -85,6 +110,7 @@ $application-height: calc(100% - #{$header-height})
 
 		.content-container
 			width: $items-width
+			height: $content-container-height
 			background-color: #f2f2f2
 			position: absolute
 			left: 130px
@@ -92,7 +118,7 @@ $application-height: calc(100% - #{$header-height})
 			.filter-container
 				background-color: white
 				width: 490px
-				height: 100px
+				height: $filter-container-height
 				margin: 15px
 				color: $font-color
 				font-family: $globalfont
@@ -110,27 +136,30 @@ $application-height: calc(100% - #{$header-height})
 						width: 33.33%
 						float: left
 
-			.content-list
-				background-color: white
-				margin: 0 15px
-				width: 490px
-				min-height: $content-list-height
-				max-height: $content-list-height
-				overflow: scroll
-				overflow-x: hidden
+			.content-list-container
+				height: $content-list-container-height
 
-				li
-					display: inline-block
-					margin: 30px
+				.content-list
+					background-color: white
+					margin: 0 15px
+					width: 490px
+					height: $content-list-height
+					overflow: scroll
+					overflow-x: hidden
 
-				.element-image
-					width: 100px
-					cursor: pointer
+					li
+						display: inline-block
+						margin: 30px
+
+					.element-image
+						width: 100px
+						cursor: pointer
   				
 	.editor-canvas
 		float: right  
 		width: $editor-canvas-width
-		height: $content-editor-height
+		min-height: 620px
+		height: $editor-canvas-height
 		overflow: hidden
 		background-color: $editor-canvas-color
 
@@ -151,7 +180,7 @@ $application-height: calc(100% - #{$header-height})
 
 		.underlay
 			width: $phone-width
-			padding-top: 10px
+			padding-top: $phone-padding
 			margin: 0px auto 0 auto
 
 			.phone-img
@@ -179,7 +208,6 @@ $application-height: calc(100% - #{$header-height})
 
 
 	.right 
-		
 		float: none  
 		width: 380px
 		overflow: hidden

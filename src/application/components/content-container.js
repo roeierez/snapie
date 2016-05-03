@@ -47,7 +47,9 @@ var ContentContainer = React.createClass({
 				<CategoryBar categoryChanged={this.changeCategory}/>
                 <div className="content-container">
 					<FilterContainer/>
-					<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
+					<div className="content-list-container">
+						<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
+					</div>
 				</div>
 			</div>
 		);
