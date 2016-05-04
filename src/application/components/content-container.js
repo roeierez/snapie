@@ -56,27 +56,7 @@ var ContentContainer = React.createClass({
 	}
 })
 
-var FilterContainer = React.createClass({
-	render: function () {
-		var filters = ['All', 'Food & Drink', 'Party', 'Love', 'Shapes',
-				'Emojis', 'Animals', 'Holidays', 'Social', 'Technology', 'Random'];
-		// ['Birthday', 'Wedding', 'Valentine\'s Day',
-		// 		'Holiday', 'Event', 'Student Life', 'Bachelor Party', 'Concert'];
-		return (
-			<div className="filter-container">
-				<ul className="filters">
-					{filters.map(function (filter){
-						return <li className="filter" key={filter}>{filter}</li>
-					})}
-				</ul>
-			</div>
-		)
-	}
-
-})
-
 var ContentList = React.createClass({
-	
 	getInitialState: function() {
 		return {
 			images: []
@@ -109,6 +89,74 @@ var ContentItem = React.createClass({
 		);
 	}
 });
+
+var filterList = ['All', 'Birthday', 'Party', 'Love', 'Shapes', 'Holidays', 'Social', 'Technology', 'Random'];
+
+var Filter = React.createClass({
+    handleClick: function(e){
+        e.preventDefault();
+        this.props.handleClick();
+    },
+    render: function(){
+    	var self = this;
+    	var icon = this.props.icon;
+    	var title = this.props.title;
+        return (
+        	<a onClick={self.handleClick} href='#'>
+					<li className="filter" onClick={self.props.action}>
+					{title}</li>
+					</a>
+        );
+    }
+});
+
+var Filters = React.createClass({
+    handleClick: function(filter){
+        this.props.changeFilter(filter);
+    },
+    
+    render: function(){
+    	console.log(this.props.currentFilter)
+        return (
+        		<ul className="filters">
+		            {this.props.filterList.map(function(filter) {
+		                return (
+	                    <Filter
+	                        handleClick={this.handleClick.bind(this, filter)}
+	                        key={filter}
+	                        title={filter}
+	                        isCurrent={(this.props.currentFilter.title === filter)}
+	                     />
+		                );
+		            }.bind(this))}
+	            </ul>
+        );
+    }
+});
+
+var FilterContainer = React.createClass({
+	getInitialState: function () {        
+        return {
+            filterList: filterList,
+            currentFilter: filterList[0]
+        };
+    },
+	setFilter: function (filter) {
+		console.log('setting filter to', filter);
+		// CHANGE CONTENTS OF LIST HERE
+	},
+	componentDidMount: function () {
+		this.setFilter(this.state.currentFilter);
+	},
+	render: function (){
+		return (
+			<div className="filter-container">
+           <Filters filterList={this.state.filterList} currentFilter={this.state.currentFilter} changeFilter={this.setFilter}></Filters>
+      </div>
+    )
+	}
+})
+
 
 module.exports = ContentContainer;
 
