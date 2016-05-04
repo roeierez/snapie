@@ -221,7 +221,7 @@ var FabricEditor = React.createClass({
 				fabric.Image.fromURL(image.source, function (img){
 					console.log('url',image.source)
 					img.set({
-						left: canvas.getWidth()/3,
+						left: canvas.getWidth()/2,
   					top: canvas.getHeight()/2,
 					});
 					img.scaleToHeight(100)
@@ -258,7 +258,7 @@ var FabricEditor = React.createClass({
 		console.log('downloading image');
 
 		// Here we re-scale the objects in the canvas to Snapchat's geo filter guidelines 1080x1920
-		var factor = 4.5;
+		var factor = 4.8;
 
 		console.log('canvas height:', canvas.getHeight())
 		console.log('canvas width:', canvas.getWidth())
