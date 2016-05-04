@@ -24,7 +24,7 @@ var config = {
 
 gulp.task('default', ['replaceHTML', 'build', 'sass']);
 
-gulp.task('build', ['js', 'replaceHTML', 'sass']);
+gulp.task('build', ['js', 'replaceHTML', 'sass', 'moveLandingPage']);
 
 gulp.task('js', function () {
 
@@ -39,6 +39,13 @@ gulp.task('js', function () {
     .pipe(require('gulp-rename')('build.min.js'))
     .pipe(gulp.dest('./build/js'));
 })
+
+gulp.task('moveLandingPage',function(){
+  // the base option sets the relative root for the set of files,
+  // preserving the folder structure
+  gulp.src('./src/client/landingpage/**/*')
+  .pipe(gulp.dest('./build/landingpage'));
+});
 
 gulp.task('replaceHTML', function(){
   return gulp.src(config.HTML)

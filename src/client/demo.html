@@ -5,42 +5,79 @@
     <title>React Tutorial</title>
     <!-- Not present in the tutorial. Just for basic styling. -->
     <link rel="stylesheet" href="/css/style.css">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.0/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.0/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> -->
+    <style>
+        .font-container {
+          margin: 5px;
+          padding: 5px;
+          overflow: auto;
+        }
+
+        .font-container p{
+          margin: 0px;
+          font-size: 30px;
+        }
+        .font-container .align-left{
+          float: left;
+        }
+        .font-container  .align-right{
+          float: right;
+        }
+        .divider {
+          margin: 10px 20px 10px 20px;
+        }
+                
+    </style>
+   <script>
+      (function(d) {
+        var config = {
+          kitId: 'jfm8mvb',
+          scriptTimeout: 3000,
+          async: true
+        },
+        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+      })(document);
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
   </head>
   <body>
-    <div class="header">
-        <div class="caption">Add flavor to your filters</div>
-        <div class="logo">Pepper</div>
-        <div class="nav">
-            <a class="nav-item">About</a>
-            <a class="nav-item">Tutorial</a>
-        </div>
-    </div>
-    
-
-    <div class="application">
-        <div class="content-editor">
-            <div id="editor"><div data-reactroot="" class="editor"><div class="content-container"><div class="filter-container"><ul><li class="filter">All</li><li class="filter">Food &amp; Drink</li><li class="filter">Party</li><li class="filter">Love</li><li class="filter">Shapes</li><li class="filter">Emojis</li><li class="filter">Animals</li><li class="filter">Holidays</li><li class="filter">Social</li><li class="filter">Technology</li><li class="filter">Random</li></ul></div><ul class="content-list"><li class="element"><img class="element-image" src="/icons/alarm.svg"></li><li class="element"><img class="element-image" src="/icons/apartment.svg"></li><li class="element"><img class="element-image" src="/icons/arrow-down-circle.svg"></li></ul></div></div></div>
-
-        <section class="editor-canvas">
-            <div class="canvas-container" style="width: 300px; height: 300px; position: relative; -webkit-user-select: none;"><canvas id="canvas" width="300" height="300" class="lower-canvas" style="position: absolute; width: 300px; height: 300px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas><canvas class="upper-canvas " width="300" height="300" style="position: absolute; width: 300px; height: 300px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas></div>
-        </section>
-    </div>
-
-    <!--<script src="js/build.min.js"></script>-->
-    <script>
-        var canvas = new fabric.Canvas('canvas');
-        var rect = new fabric.Rect({
-            top : 100,
-            left : 100,
-            width : 60,
-            height : 70,
-            fill : 'red'
-        });
-        canvas.add(rect);
-    </script>
+        <div>
+          <ul>
+            <li>
+                <div class="font-container">
+                  <span class="align-left"><p style="font-family: 'bickham-script-pro-3'">Bickham Script</p></span> 
+                  <span class="align-right"><p style="font-family: 'bickham-script-pro-3'">Pepper is awesome!</p></span>
+                </div>
+                <hr class="divider">  
+            </li>
+            <li>
+                <div class="font-container">
+                  <span class="align-left"><p style="font-family: 'Blenny'">Blenny</p></span> 
+                  <span class="align-right"><p style="font-family: 'Blenny'">Pepper is awesome!</p></span>
+                </div>
+                <hr class="divider">  
+            </li>
+            <li>
+                <div class="font-container">
+                  <span class="align-left"><p style="font-family: 'futura-pt-condensed'">Futura</p></span> 
+                  <span class="align-right"><p style="font-family: 'futura-pt-condensed'">Pepper is awesome!</p></span>
+                </div>
+                <hr class="divider">  
+            </li>
+             <li>
+                <div class="font-container">
+                  <span class="align-left"><p style="font-family: 'kepler-std-semicondensed">Kepler</p></span> 
+                  <span class="align-right"><p style="font-family: 'kepler-std-semicondensed'">Pepper is awesome!</p></span>
+                </div>
+                <hr class="divider">  
+            </li>
+            <li>
+                <div class="font-container">
+                  <span class="align-left"><p style="font-family: 'Kinescope'">Kinescope</p></span> 
+                  <span class="align-right"><p style="font-family: 'Kinescope'">Pepper is awesome!</p></span>
+                </div>
+                <hr class="divider">   
+            </li>
+          </ul>  
+        </div>  
   </body>
 </html>
