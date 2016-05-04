@@ -249,6 +249,41 @@ var FabricEditor = React.createClass({
 					canvas.renderAll();
 					save()
 				})
+			},
+			removeObject: function () {
+				if(canvas.getActiveGroup()){
+					canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
+      				canvas.discardActiveGroup();
+		    	} else {
+		    		canvas.remove(canvas.getActiveObject());
+		    	}
+				canvas.renderAll();
+      			save();
+			},
+			boldenText: function () {
+				var obj = canvas.getActiveObject();
+				if (!obj) return;
+				if (obj.fontWeight == 'bold'){
+					obj.setFontWeight('normal');
+				}else{
+					obj.setFontWeight('bold');
+				} 
+				canvas.renderAll();
+				save();
+			},
+			setColor: function (value) {
+				var activeObject = canvas.getActiveObject();
+				activeObject.setColor(value);
+				canvas.renderAll();
+				save();
+			},
+			bringForward: function (){
+				canvas.getActiveObject().bringForward(true);
+				save();
+			},
+			sendBack: function () {
+				canvas.getActiveObject().sendBackwards(true);
+				save();
 			}
 		}
 	},
@@ -364,33 +399,21 @@ var EditToolbar = React.createClass({
 		/*
 		 * Sends currently selected object back
 		 */
-		canvas.getActiveObject().sendBackwards(true);
+		fabricAPI.sendBack()
 		console.log("sending currently selected object backward");
 	},
 	bringForward: function(){
 		/*
 		 * Brings currently selected obect forward
 		 */
-		canvas.getActiveObject().bringForward(true);
+		fabricAPI.bringForward
 		console.log("sending currently selected object forward");
 	},
 	removeObject: function(){
-		if(canvas.getActiveGroup()){
-      canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
-      canvas.discardActiveGroup().renderAll();
-    } else {
-      canvas.remove(canvas.getActiveObject());
-    }
+		fabricAPI.removeObject()
 	},
 	boldText: function(){
-		var obj = canvas.getActiveObject();
-		if (!obj) return;
-		if (obj.fontWeight == 'bold'){
-			obj.setFontWeight('normal');
-		}else{
-			obj.setFontWeight('bold');
-		} 
-		canvas.renderAll();
+		fabricAPI.boldenText()
 	},
 	render: function () {
 		var self = this;
@@ -409,16 +432,14 @@ var EditToolbar = React.createClass({
 })
 
 var ColorSelector = React.createClass({
-  changeTextColor: function(event){
-    var activeObject = canvas.getActiveObject();
-   	activeObject.setColor(event.target.value);
-    canvas.renderAll();
+	changeTextColor: function(event){
+		fabricAPI.setColor(event.target.value)
 	},
-  render: function() {
-    return (
-      <input type="color" onChange={this.changeTextColor}/>
-    );
-  }
+  	render: function() {
+    	return (
+			<input type="color" onChange={this.changeTextColor}/>
+		);
+  	}
 })
 
 // Bootstrapping the application
