@@ -1,35 +1,34 @@
-var React = require('react')
+import React from 'react'
+import {Link} from 'react-router'
 
 var tabList = [
 	{
-		title: "Templates",
-		type: "template",
-		icon: '/img/templates.svg',
-		url: '/api/templates'
+		title : "Templates",
+		icon  : '/img/templates.svg',
+		url   : '/api/templates',
+		state : '/templates'
 	},
 	{
-		title: "Elements",
-		type: "element",
-		icon: '/img/elements.svg',
-		url: '/api/elements'
+		title : "Elements",
+		icon  : '/img/elements.svg',
+		url   : '/api/elements',
+		state : '/elements'
 	},
 	{
-		title: "Text",
-		type: "text",
-		icon: '/img/text.svg',
-		url: '/api/fonts'
+		title : "Text",
+		icon  : '/img/text.svg',
+		url   : '/api/fonts',
+		state : '/text'
 	},
 	{
-		title: "Custom",
-		type: "transition",
-		icon: '/img/custommade.svg',
-		url : "/custom"
+		title : "Custom",
+		icon  : '/img/custommade.svg',
+		state : "/custom"
 	},
 	{
-		title: "Animate Yourself",
-		type : "transition",
-		icon : '/img/animate.svg',
-		url  : "/animoji"
+		title : "Animate Yourself",
+		icon  : '/img/animate.svg',
+		state : "/animoji"
 	}
 ]
 
@@ -54,10 +53,6 @@ var Tab = React.createClass({
 });
 
 var Tabs = React.createClass({
-    handleClick: function(tab){
-        this.props.changeTab(tab);
-    },
-    
     render: function(){
     	console.log(this.props.currentTab)
         return (
@@ -65,13 +60,11 @@ var Tabs = React.createClass({
         		<ul>
 		            {this.props.tabList.map(function(tab) {
 		                return (
-		                    <Tab
-		                        handleClick={this.handleClick.bind(this, tab)}
-		                        key={tab.title}
-		                        icon={tab.icon}
-		                        title={tab.title}
-		                        isCurrent={(this.props.currentTab.title === tab.title)}
-		                     />
+		                	<Link key={tab.title} activeClassName="active" to={tab.state}>
+								<li>
+										<img src={tab.icon}/><br/>{tab.title}
+								</li>
+							</Link>
 		                );
 		            }.bind(this))}
 	            </ul>
@@ -79,7 +72,6 @@ var Tabs = React.createClass({
         );
     }
 });
-
 var CategoryBar = React.createClass({
 	getInitialState: function () {        
         return {
@@ -91,7 +83,7 @@ var CategoryBar = React.createClass({
 		console.log('props in CategoryBar', this.props)
 		console.log('setting category to ', category);
 		this.setState({ currentTab: category });
-		this.props.categoryChanged(category);
+		//this.props.categoryChanged(category);
 	},
 	componentDidMount: function () {
 		this.setCategory(this.state.currentTab);

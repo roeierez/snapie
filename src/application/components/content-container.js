@@ -9,69 +9,39 @@ var ContentContainer = React.createClass({
 		};
 	},
 	componentDidUpdate: function (){
-		if (this.state.fabricAPI){
-			fabricAPI = this.state.fabricAPI
-		} else {
-			fabricAPI = {}
-		}
-	},
-	addItem: function (item) {
-		if (this.state.category.type==="element") {
-			this.state.fabricAPI.addItem(item)
-		}
-		else if (this.state.category.type==="template"){
-			this.state.fabricAPI.addTemplate(item)
-		}
-		else if (this.state.category.type==="text") {
-			this.state.fabricAPI.addTextBox(item)
-		}
-	},
-	changeCategory: function (category) {
-		if (category.type==="transition"){
-			console.log(category.url);
-		}
-		else {
-			this.setState({category: category})
-			this.fetchItems(category.url)
-		}
+		this.filterItems()
 	},
 	changeFilter: function(filter) {
 		// When a filter is changes, we grab the elements from the server
 		this.setState({currentFilter: filter});
 		console.log("Changing Filter", this.state.currentFilter);
 		if(this.state.category != null){
-			this.fetchItems(this.state.category.url);
+			this.filterItems();
 		}
 	},
-	fetchItems: function (url) {
+	filterItems: function () {
+		console.log('filtering things')
 		var self = this;
 		self.list && self.list.setState({images: []})
-		$.get(url, function(result) {
-			// This really shouldn't need to be stored directly on the element like this.
-			var filteredList = []
-			var currentFilter = this.state.currentFilter
-			
-			// loop through them and look at the tags
-			result.forEach(function(image, index){
-				if(isInTagList(currentFilter, image.tag)){
-					console.log("Image", image.name, image.tag)
-					filteredList.push(image);
-				}
-			})
-			self.list.setState({
-				images: filteredList
-			});
-		}.bind(self))
+		var currentFilter = this.state.currentFilter
+		var items = self.props.items;
+		var filteredList=[]
+		// loop through them and look at the tags
+		items.forEach(function(image, index){
+			if(isInTagList(currentFilter, image.tag)){
+				filteredList.push(image);
+			}
+		})
+		self.list.setState({
+			images: filteredList
+		});
 	},
 	render: function (){
-		return (
-			<div className="content-editor">
-				<CategoryBar categoryChanged={this.changeCategory}/>
-        <div className="content-container">
-					<FilterContainer filterChanged={this.changeFilter}/>
-					<div className="content-list-container">
-						<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
-					</div>
+		return (	
+    		<div className="content-container">
+				<FilterContainer filterChanged={this.changeFilter}/>
+				<div className="content-list-container">
+					<ContentList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
 				</div>
 			</div>
 		);

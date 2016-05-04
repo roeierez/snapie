@@ -2,24 +2,24 @@ $header-height: 60px
 $header-color: #FFFFFF
 $application-height: calc(100% - #{$header-height})
 
-$content-editor-width: 648px
+$categories-width: 100px
+$categories-bg-color: lightgray
+$categories-height: 100%
+
+$content-editor-width: calc(100% - #{$categories-width})
 $content-editor-height: 100% 
 
-$categories-width: 170px
-$categories-bg-color: lightgray
-$categories-height: $content-editor-height
 
+$content-container-width: 548px
 $content-container-height: calc(100% - #{$header-height})
 $filter-container-height: 100px
-$content-list-container-height: calc(100% - #{130px})
-$content-list-height: 100%
 
 $top-margin: 18px
-$editor-canvas-width: calc(100% - #{$content-editor-width})
+$editor-canvas-width: calc(100% - #{$content-container-width})
 $editor-canvas-color: #F1F1F1
 $editor-canvas-height: 100%
 
-$items-width: calc(#{$content-editor-width} - #{$categories-width})
+$content-container-width: 548px
 $tags-height: 69px
 $globalfont: Gotham, Helvetica
 $font-color: #99979e
@@ -65,52 +65,59 @@ body
 	background-color: #f2f2f2
 
 #editor
-	height: 100%
+	height: calc(100% - #{$header-height})
 
 .application
 	width: 100%
 	height: 100%
 
-	.content-editor
-		position: absolute
+	.categories
+		background-color: #F0EEEE
+		position: relative
+		display: inline-block
+		height: $categories-height
+		width: $categories-width
 		float: left
+
+		li 
+			padding-top: 20px
+			width: $categories-width
+			text-align: center
+			height: 100px
+			text-transform: uppercase
+			font-size: 12px
+			color: $font-color
+			font-family: $globalfont
+
+			
+			img
+				height: 31px
+		
+
+		li:hover
+			background-color: lightgrey
+		.active li
+			background-color: #D3D3D3
+			
+		
+		li:last-child
+			padding-top: 20px
+
+	.content-editor
+		position: relative
+		display: inline-block
 		min-height: 620px
 		height: $content-editor-height
 		background-color: #F1F1F1
 		width: $content-editor-width
 
-		.categories
-			background-color: #F0EEEE
-			position: absolute
-			height: $categories-height
-
-			li 
-				width: 140px
-				text-align: center
-				height: 100px
-				text-transform: uppercase
-				font-size: 14px
-				color: $font-color
-				font-family: $globalfont
-
-				
-				img
-					height: 43px
-
-					
-		
-			li.active
-				background-color: #D3D3D3
-
-			li:last-child
-				padding-top: 20px
-
 		.content-container
-			width: $items-width
+			width: $content-container-width
 			height: $content-container-height
 			background-color: #f2f2f2
-			position: absolute
-			left: 140px
+			position: relative
+			display: inline-block
+			padding-left: 30px
 
 			.filter-container
 				background-color: white
@@ -119,14 +126,14 @@ body
 				margin: 15px
 				color: $font-color
 				font-family: $globalfont
-				font-size: 18px
+				font-size: 12px
 				
 				.filters
 					width: 100%
 					height: 100%
 					overflow: hidden
-					padding-left: 20px
-					padding-top: 18px
+					padding-left: 40px
+					padding-top: 12px
 
 					.filter
 						display: inline
@@ -135,13 +142,14 @@ body
 						
 
 			.content-list-container
-				height: $content-list-container-height
+				height: calc(100% - 100px)
+				background-color:white
 
 				.content-list
 					background-color: white
 					margin: 0 15px
 					width: 490px
-					height: $content-list-height
+					height: 100%
 					overflow: scroll
 					overflow-x: hidden
 
@@ -154,7 +162,9 @@ body
 						cursor: pointer
   				
 	.editor-canvas
-		float: right  
+		position: relative
+		display: inline-block
+		float: right
 		width: $editor-canvas-width
 		min-height: 620px
 		height: $editor-canvas-height
@@ -162,10 +172,11 @@ body
 		background-color: $editor-canvas-color
 
 		.edit-toolbar
-			position: relative
-			float: left
-			margin: 15px 10px 10px 10px 
-			padding: 5px 
+			position: absolute
+			top: 15px
+			left: 10px
+			padding: 5px
+			width: 52px 
 			background-color: #FFFFFF
 
 			img
@@ -203,10 +214,6 @@ body
 
 		.guidelines
 			text-align: center
-			color: $font-color
-			margin-top: 20px
-			a
-				color: #4DB0E9
 
 
 	.right 

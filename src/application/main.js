@@ -61,11 +61,19 @@ var redo = [];
 // Push the current state into the undo stack and then capture the current state
 function save() {
   // clear the redo stack
+  console.log('saving state')
   redo = [];
   if (state) {
     undo.push(state);
   }
   state = JSON.stringify(canvas);
+}
+
+function load(prevState) {
+	console.log('loading state')
+	canvas.loadFromJSON(prevState, function() {
+		canvas.renderAll();
+	});
 }
 
 function replay(playStack, saveStack) {
@@ -78,14 +86,108 @@ function replay(playStack, saveStack) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
+var TemplatesView = React.createClass({
+	getInitialState: function () {
+		return {items: []}
+	},
+	componentDidMount: function (){
+		this.fetchItems()
+	},
+	shouldComponentUpdate: function (a, b){
+		console.log('update?', a, b)
+		return true
+	},
+	fetchItems: function () {
+		var self = this;
+		$.get('/api/templates', function(results) {
+			console.log('retrieved results', results)
+			this.setState({
+				items: results
+			});
+		}.bind(self))
+	},
+	addItem: function (item) {
+		fabricAPI.addTemplate(item)
+	},
+	render: function () {
+		return (
+			<div className="content-editor">
+				<ContentContainer items={this.state.items} addItem={this.addItem} />
+				<FabricEditor/>
+			</div>
+		)
+	}
+})
+var ElementsView = React.createClass({
+	getInitialState: function () {
+		return {items: []}
+	},
+	componentDidMount: function (){
+		this.fetchItems()
+	},
+	shouldComponentUpdate: function (a, b){
+		return true
+	},
+	fetchItems: function () {
+		var self = this;
+		$.get('/api/elements', function(results) {
+			console.log('retrieved results', results)
+			this.setState({
+				items: results
+			});
+		}.bind(self))
+	},
+	addItem: function (item) {
+		fabricAPI.addItem(item)
+	},
+	render: function () {
+		return (
+			<div className="content-editor">
+				<ContentContainer items={this.state.items} addItem={this.addItem} />
+				<FabricEditor/>
+			</div>
+		)
+	}
+})
+var TextView = React.createClass({
+	getInitialState: function () {
+		return {items: []}
+	},
+	componentDidMount: function (){
+		this.fetchItems()
+	},
+	shouldComponentUpdate: function (a, b){
+		console.log('update?', a, b)
+		return true
+	},
+	fetchItems: function () {
+		var self = this;
+		$.get('/api/fonts', function(results) {
+			console.log('retrieved results', results)
+			this.setState({
+				items: results
+			});
+		}.bind(self))
+	},
+	addItem: function (item) {
+		fabricAPI.addTextBox(item)
+	},
+	render: function () {
+		return (
+			<div className="content-editor">
+				<ContentContainer items={this.state.items} addItem={this.addItem} />
+				<FabricEditor/>
+			</div>
+		)
+	}
+})
 var Editor = React.createClass({
 	componentDidMount: function () {
 		this.contentContainer.setState({fabricAPI: fabricAPI});
 	},
 	render: function () {
 		return (
-			<div className="application">
+			<div className="content-editor">
 				<ContentContainer ref={(ref) => this.contentContainer = ref}/>
 				<FabricEditor/>
 			</div>
@@ -96,12 +198,20 @@ var Editor = React.createClass({
 // Fabric Canvas Elements
 var FabricEditor = React.createClass({
 	componentDidMount: function () {
+	console.log('starting fabric')
+	if (canvas) {
+		console.log('loading old state');
 		canvas = new fabric.Canvas('canvas');
-		
+		load(state)
+	} else {
+		console.log('starting from scratch')
+		canvas = new fabric.Canvas('canvas');
 		// save initial state
-    save();
+	    save();
+	}
     // register event listener for user's actions
     canvas.observe('object:modified', function() {
+    	console.log('object:modified')
     	save();
     });
 
@@ -117,24 +227,27 @@ var FabricEditor = React.createClass({
 					img.scaleToHeight(100)
 					canvas.add(img);
 					canvas.renderAll();
+					save()
 				})
 			},
 			addTextBox: function(image){
 				// Grab the font name
 				var fontFamily = image.name;
 				var fabicText = new fabric.IText('Pepper is awesome!', {
-		        left: canvas.getWidth()/12,
-		  			top: canvas.getHeight()/2,
-		  			fontFamily: fontFamily,
-		  			fontSize: 28
-		    })
-		    canvas.add(fabicText);
+			        left: canvas.getWidth()/12,
+			  			top: canvas.getHeight()/2,
+			  			fontFamily: fontFamily,
+			  			fontSize: 28
+			    })
+			    canvas.add(fabicText);
+			    save()
 			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
 					img.scaleToWidth(canvas.getWidth())
 					canvas.setBackgroundImage(img)
 					canvas.renderAll();
+					save()
 				})
 			}
 		}
@@ -279,32 +392,6 @@ var EditToolbar = React.createClass({
 		} 
 		canvas.renderAll();
 	},
-	/*
-	italicizeText: function(){
-		var obj = canvas.getActiveObject();
-		if (!obj) return;
-		if (obj.fontStyle == 'italic'){
-			obj.setFontStyle('normal');
-		}else{
-			obj.setFontStyle('italic');
-		} 
-		canvas.renderAll();
-	},
-	underlineText: function(){
-		var obj = canvas.getActiveObject();
-		if (!obj) return;
-		if (obj.textDecoration == 'underline'){
-			obj.setTextDecoration('normal');
-		}else{
-			obj.setTextDecoration('underline');
-		}
-		canvas.renderAll();
-	},
-	clearBackground: function(){
-		canvas.backgroundImage = null;
-		canvas.renderAll();
-	},
-	*/
 	render: function () {
 		var self = this;
 		return (
@@ -336,8 +423,15 @@ var ColorSelector = React.createClass({
 
 // Bootstrapping the application
 
-ReactDOM.render(
-	<Editor/>,
-	document.getElementById('editor')
-);
+// ReactDOM.render(
+// 	<Editor/>,
+// 	document.getElementById('editor')
+// );
+module.exports = {
+	Editor,
+	TemplatesView,
+	ElementsView,
+	TextView
+}
+
 

@@ -28,14 +28,14 @@ gulp.task('build', ['js', 'replaceHTML', 'sass', 'moveLandingPage']);
 
 gulp.task('js', function () {
 
-  return browserify(['./src/application/main.js'], {debug: true})
+  return browserify(['./src/application/app.js'], {debug: true})
     .transform('babelify', {presets: ["es2015", "react"]})
     .bundle()
     .on('error', function (err){
       console.log('there was an error')
       console.log(err.toString())
     })
-    .pipe(source('main.js'))
+    .pipe(source('app.js'))
     .pipe(require('gulp-rename')('build.min.js'))
     .pipe(gulp.dest('./build/js'));
 })
