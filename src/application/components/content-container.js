@@ -3,6 +3,11 @@ var CategoryBar = require('./category-bar');
 var fabricAPI;
 
 var ContentContainer = React.createClass({
+	getInitialState: function() {
+		return {
+			currentFilter: 'All'
+		};
+	},
 	componentDidUpdate: function (){
 		if (this.state.fabricAPI){
 			fabricAPI = this.state.fabricAPI
@@ -30,14 +35,31 @@ var ContentContainer = React.createClass({
 			this.fetchItems(category.url)
 		}
 	},
+	changeFilter: function(filter) {
+		// When a filter is changes, we grab the elements from the server
+		this.setState({currentFilter: filter});
+		console.log("Changing Filter", this.state.currentFilter);
+		if(this.state.category != null){
+			this.fetchItems(this.state.category.url);
+		}
+	},
 	fetchItems: function (url) {
 		var self = this;
 		self.list && self.list.setState({images: []})
 		$.get(url, function(result) {
-			console.log('retrieved',result)
 			// This really shouldn't need to be stored directly on the element like this.
+			var filteredList = []
+			var currentFilter = this.state.currentFilter
+			
+			// loop through them and look at the tags
+			result.forEach(function(image, index){
+				if(isInTagList(currentFilter, image.tag)){
+					console.log("Image", image.name, image.tag)
+					filteredList.push(image);
+				}
+			})
 			self.list.setState({
-				images: result
+				images: filteredList
 			});
 		}.bind(self))
 	},
@@ -45,8 +67,8 @@ var ContentContainer = React.createClass({
 		return (
 			<div className="content-editor">
 				<CategoryBar categoryChanged={this.changeCategory}/>
-                <div className="content-container">
-					<FilterContainer/>
+        <div className="content-container">
+					<FilterContainer filterChanged={this.changeFilter}/>
 					<div className="content-list-container">
 						<ContentList addItem={this.addItem} ref={(ref) => this.list = ref} />
 					</div>
@@ -56,22 +78,27 @@ var ContentContainer = React.createClass({
 	}
 })
 
+function isInTagList(value, array) {
+  return array.indexOf(value) > -1;
+}
+
 var ContentList = React.createClass({
 	getInitialState: function() {
 		return {
-			images: []
+			images: [],
 		};
 	},
 	render: function() {
 		var images = this.state.images;
 		var self = this;
+		// Here we grab the tag list from the api, and we check whether the 
+		// current filter is in the tag list, if so display
 		return (
 		<ul className="content-list">
 			{images.map(function (image){
 				return <ContentItem clickFunction={self.props.addItem} item={image}/>;
 			})}
 		</ul>
-			
 		);
 	}
 });
@@ -114,9 +141,7 @@ var Filters = React.createClass({
     handleClick: function(filter){
         this.props.changeFilter(filter);
     },
-    
     render: function(){
-    	console.log(this.props.currentFilter)
         return (
         		<ul className="filters">
 		            {this.props.filterList.map(function(filter) {
@@ -138,12 +163,11 @@ var FilterContainer = React.createClass({
 	getInitialState: function () {        
         return {
             filterList: filterList,
-            currentFilter: filterList[0]
+            currentFilter: filterList[0],
         };
     },
 	setFilter: function (filter) {
-		console.log('setting filter to', filter);
-		// CHANGE CONTENTS OF LIST HERE
+		this.props.filterChanged(filter);
 	},
 	componentDidMount: function () {
 		this.setFilter(this.state.currentFilter);
