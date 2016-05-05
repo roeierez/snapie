@@ -252,9 +252,6 @@ var FontItem = React.createClass({
 	}
 });
 
-
-
-
 var Editor = React.createClass({
 	componentDidMount: function () {
 		this.contentContainer.setState({fabricAPI: fabricAPI});
