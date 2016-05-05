@@ -4,30 +4,30 @@ import {Link} from 'react-router'
 var tabList = [
 	{
 		title : "Templates",
-		icon  : '/img/templates.svg',
+		icon  : '/assets/img/templates.svg',
 		url   : '/api/templates',
 		state : '/templates'
 	},
 	{
 		title : "Elements",
-		icon  : '/img/elements.svg',
+		icon  : '/assets/img/elements.svg',
 		url   : '/api/elements',
 		state : '/elements'
 	},
 	{
 		title : "Text",
-		icon  : '/img/text.svg',
+		icon  : '/assets/img/text.svg',
 		url   : '/api/fonts',
 		state : '/text'
 	},
 	{
 		title : "Custom",
-		icon  : '/img/custommade.svg',
+		icon  : '/assets/img/custommade.svg',
 		state : "/custom"
 	},
 	{
 		title : "Animate Yourself",
-		icon  : '/img/animate.svg',
+		icon  : '/assets/img/animate.svg',
 		state : "/animoji"
 	}
 ]

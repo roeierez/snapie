@@ -450,7 +450,7 @@ var FabricEditor = React.createClass({
 				<EditToolbar/>
 				
 				<div className="underlay">
-					<img className='phone-img' src="/img/iphone.png" alt="" />
+					<img className='phone-img' src="/assets/img/iphone.png" alt="" />
 					<canvas id="canvas" width="225" height="400"></canvas>
 				</div>
 				<div className="download-button">
@@ -494,11 +494,11 @@ var EditToolbar = React.createClass({
 		return (
 			<div className="edit-toolbar">
 				<ul>
-					<li><a onClick={this.sendBack}><img src="/toolbar_icons/up.svg" height="42" width="42"/></a></li>
-					<li><a onClick={this.bringForward}><img src="/toolbar_icons/down.svg" height="42" width="42"/></a></li>
-					<li><a onClick={this.removeObject}><img src="/toolbar_icons/trash.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.sendBack}><img src="/assets/toolbar_icons/up.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.bringForward}><img src="/assets/toolbar_icons/down.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.removeObject}><img src="/assets/toolbar_icons/trash.svg" height="42" width="42"/></a></li>
 					<li><ColorSelector/></li>
-					<li><a onClick={this.boldText}><img src="/toolbar_icons/bold.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.boldText}><img src="/assets/toolbar_icons/bold.svg" height="42" width="42"/></a></li>
 				</ul>
 			</div> 
 		)
