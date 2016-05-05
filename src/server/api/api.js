@@ -86,7 +86,7 @@ router.get('/templates', function(req, res){
 // http://localhost:8080/api/template?id=4
 router.get('/fonts', function(req, res){
   // path to graphics
-  var graphics = '[{"tag":"All","name":"Kinescope","preview":"/fonts/Kinescope.png","source":"/fonts/Kinescope.png"}, {"tag":"All","name":"Blenny","preview":"/fonts/Blenny.png","source":"/fonts/Blenny.png"}, {"tag":"All","name":"Kepler Std Semicondense ","preview":"/fonts/KeplerStdSemicondense.png","source":"/fonts/KeplerStdSemicondense.png"}, {"tag":"All","name":"Bickham Script Pro 3 Regular","preview":"/fonts/BickhamScriptPro3.png","source":"/fonts/BickhamScriptPro3.png"}]';
+  var graphics = '[{"name":"Avebury Inline", "fontfamily":"avebury-inline"},{"name":"Bickham Script Pro 3", "fontfamily":"bickham-script-pro-3"},{"name":"Blenny", "fontfamily":"blenny"},{"name":"Discourse Middle", "fontfamily":"discourse-middle"},{"name":"Discourse Narrow Outline", "fontfamily":"discourse-narrow-outline"},{"name":"Fira Sans 2", "fontfamily":"fira-sans-2"}, {"name":"Factoria", "fontfamily":"factoria"}, {"name":"Freight Micro Pro", "fontfamily":"freight-micro-pro"},{"name":"Futura PT Condensed", "fontfamily":"futura-pt-condensed"},{"name":"Kepler Std Semicondense", "fontfamily":"kepler-std-semicondensed"},{"name":"Kinescope", "fontfamily":"kinescope"},{"name":"Monorcha", "fontfamily":"monorcha"},{"name":"Proxima Nova", "fontfamily":"proxima-nova"}]';
 
   var arr = JSON.parse(graphics);
   res.json(arr);

@@ -175,12 +175,86 @@ var TextView = React.createClass({
 	render: function () {
 		return (
 			<div className="content-editor">
-				<ContentContainer items={this.state.items} addItem={this.addItem} />
+				<FontContainer items={this.state.items} addItem={this.addItem} />
 				<FabricEditor/>
 			</div>
 		)
 	}
 })
+
+var FontContainer = React.createClass({
+	componentDidUpdate: function (){
+		var self = this;
+		self.list && self.list.setState({images: []})
+
+		self.list.setState({
+			images: self.props.items
+		});
+	},
+	render: function (){
+		return (	
+    		<div className="fonts-container">
+				<div className="content-list-container">
+					<FontList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
+				</div>
+			</div>
+		);
+	}
+})
+
+var FontList = React.createClass({
+	getInitialState: function() {
+		return {
+			images: [],
+		};
+	},
+	render: function() {
+		var images = this.state.images;
+		var self = this;
+		// Here we grab the tag list from the api, and we check whether the 
+		// current filter is in the tag list, if so display
+		return (
+		<ul className="content-list">
+			{images.map(function (image){
+				return <FontItem clickFunction={self.props.addItem} item={image}/>;
+			})}
+		</ul>
+		);
+	}
+});
+
+
+var FontItem = React.createClass({
+	handleClick: function (){
+		var item = this.props.item;
+		console.log(item)
+		this.props.clickFunction(item)
+	},
+	render: function (){
+		var item = this.props.item;
+
+		var fontstyle = {
+		  fontFamily: item.fontfamily
+		};
+		var separatorstyle = {
+			margin: '0px'
+		}
+		return (
+
+			<li onClick={this.handleClick} key={item.id}>
+				<div className="font-container">
+					<span className="align-left"><p style={fontstyle}>{item.name}</p></span> 
+          <span className="align-right"><p style={fontstyle}>Pepper is Awesome!</p></span>
+        </div>
+        <hr style={separatorstyle}/>  
+			</li>
+		);
+	}
+});
+
+
+
+
 var Editor = React.createClass({
 	componentDidMount: function () {
 		this.contentContainer.setState({fabricAPI: fabricAPI});
@@ -227,27 +301,24 @@ var FabricEditor = React.createClass({
 					img.scaleToHeight(100)
 					canvas.add(img);
 					canvas.renderAll();
-					save()
 				})
 			},
 			addTextBox: function(image){
 				// Grab the font name
-				var fontFamily = image.name;
+				var fontFamily = image.fontfamily;
 				var fabicText = new fabric.IText('Pepper is awesome!', {
 			        left: canvas.getWidth()/12,
 			  			top: canvas.getHeight()/2,
 			  			fontFamily: fontFamily,
-			  			fontSize: 28
+			  			fontSize: 20
 			    })
 			    canvas.add(fabicText);
-			    save()
 			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
 					img.scaleToWidth(canvas.getWidth())
 					canvas.setBackgroundImage(img)
 					canvas.renderAll();
-					save()
 				})
 			},
 			removeObject: function () {
@@ -258,7 +329,7 @@ var FabricEditor = React.createClass({
 		    		canvas.remove(canvas.getActiveObject());
 		    	}
 				canvas.renderAll();
-      			save();
+				console.log("Removing Object")
 			},
 			boldenText: function () {
 				var obj = canvas.getActiveObject();
@@ -269,21 +340,17 @@ var FabricEditor = React.createClass({
 					obj.setFontWeight('bold');
 				} 
 				canvas.renderAll();
-				save();
 			},
 			setColor: function (value) {
 				var activeObject = canvas.getActiveObject();
 				activeObject.setColor(value);
 				canvas.renderAll();
-				save();
 			},
 			bringForward: function (){
 				canvas.getActiveObject().bringForward(true);
-				save();
 			},
 			sendBack: function () {
 				canvas.getActiveObject().sendBackwards(true);
-				save();
 			}
 		}
 	},
@@ -376,7 +443,7 @@ var FabricEditor = React.createClass({
 				<EditToolbar/>
 				
 				<div className="underlay">
-					<img className='phone-img' src="/img/iphone.png" alt="" />
+					<img className='phone-img' src="/assets/img/iphone.png" alt="" />
 					<canvas id="canvas" width="225" height="400"></canvas>
 				</div>
 				<div className="download-button">
@@ -420,11 +487,11 @@ var EditToolbar = React.createClass({
 		return (
 			<div className="edit-toolbar">
 				<ul>
-					<li><a onClick={this.sendBack}><img src="/toolbar_icons/up.svg" height="42" width="42"/></a></li>
-					<li><a onClick={this.bringForward}><img src="/toolbar_icons/down.svg" height="42" width="42"/></a></li>
-					<li><a onClick={this.removeObject}><img src="/toolbar_icons/trash.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.sendBack}><img src="/assets/toolbar_icons/up.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.bringForward}><img src="/assets/toolbar_icons/down.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.removeObject}><img src="/assets/toolbar_icons/trash.svg" height="42" width="42"/></a></li>
 					<li><ColorSelector/></li>
-					<li><a onClick={this.boldText}><img src="/toolbar_icons/bold.svg" height="42" width="42"/></a></li>
+					<li><a onClick={this.boldText}><img src="/assets/toolbar_icons/bold.svg" height="42" width="42"/></a></li>
 				</ul>
 			</div> 
 		)
