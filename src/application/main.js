@@ -234,7 +234,7 @@ var FontItem = React.createClass({
 		var item = this.props.item;
 
 		var fontstyle = {
-		  fontFamily: item.name
+		  fontFamily: item.fontfamily
 		};
 		var separatorstyle = {
 			margin: '0px'
@@ -306,12 +306,12 @@ var FabricEditor = React.createClass({
 			},
 			addTextBox: function(image){
 				// Grab the font name
-				var fontFamily = image.name;
+				var fontFamily = image.fontfamily;
 				var fabicText = new fabric.IText('Pepper is awesome!', {
 			        left: canvas.getWidth()/12,
 			  			top: canvas.getHeight()/2,
 			  			fontFamily: fontFamily,
-			  			fontSize: 28
+			  			fontSize: 20
 			    })
 			    canvas.add(fabicText);
 			    save()
