@@ -301,7 +301,6 @@ var FabricEditor = React.createClass({
 					img.scaleToHeight(100)
 					canvas.add(img);
 					canvas.renderAll();
-					save()
 				})
 			},
 			addTextBox: function(image){
@@ -314,14 +313,12 @@ var FabricEditor = React.createClass({
 			  			fontSize: 20
 			    })
 			    canvas.add(fabicText);
-			    save()
 			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
 					img.scaleToWidth(canvas.getWidth())
 					canvas.setBackgroundImage(img)
 					canvas.renderAll();
-					save()
 				})
 			},
 			removeObject: function () {
@@ -332,7 +329,7 @@ var FabricEditor = React.createClass({
 		    		canvas.remove(canvas.getActiveObject());
 		    	}
 				canvas.renderAll();
-      			save();
+				console.log("Removing Object")
 			},
 			boldenText: function () {
 				var obj = canvas.getActiveObject();
@@ -343,21 +340,17 @@ var FabricEditor = React.createClass({
 					obj.setFontWeight('bold');
 				} 
 				canvas.renderAll();
-				save();
 			},
 			setColor: function (value) {
 				var activeObject = canvas.getActiveObject();
 				activeObject.setColor(value);
 				canvas.renderAll();
-				save();
 			},
 			bringForward: function (){
 				canvas.getActiveObject().bringForward(true);
-				save();
 			},
 			sendBack: function () {
 				canvas.getActiveObject().sendBackwards(true);
-				save();
 			}
 		}
 	},
