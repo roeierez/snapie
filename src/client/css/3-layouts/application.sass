@@ -111,6 +111,52 @@ body
 		background-color: #F1F1F1
 		width: $content-editor-width
 
+
+		.fonts-container
+			width: $content-container-width
+			height: $content-container-height
+			background-color: #f2f2f2
+			position: relative
+			display: inline-block
+			padding-left: 30px
+			margin-top: 15px
+
+			.content-list-container
+				height: 100%
+				background-color:white
+
+				.content-list
+					background-color: white
+					margin: 0 15px
+					width: 490px
+					height: 100%
+					overflow: scroll
+					overflow-x: hidden
+
+					li
+						display: inline-block
+						padding: 5px
+						width: 490px
+
+					.font-container
+						margin: 5px
+						padding: 5px
+						overflow: auto
+						cursor: pointer
+
+						p   
+							margin: 0px
+							font-size: 18px
+
+						.align-left
+							float: left
+
+						.align-right
+							float: right
+
+						.separator
+							margin: 0px
+
 		.content-container
 			width: $content-container-width
 			height: $content-container-height
