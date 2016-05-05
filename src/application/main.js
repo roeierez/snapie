@@ -281,7 +281,7 @@ var FabricEditor = React.createClass({
 		console.log('starting from scratch')
 		canvas = new fabric.Canvas('canvas');
 		// save initial state
-	    save();
+	  save();
 	}
     // register event listener for user's actions
     canvas.observe('object:modified', function() {
@@ -302,6 +302,7 @@ var FabricEditor = React.createClass({
 					canvas.add(img);
 					canvas.renderAll();
 				})
+				save();
 			},
 			addTextBox: function(image){
 				// Grab the font name
@@ -313,6 +314,7 @@ var FabricEditor = React.createClass({
 			  			fontSize: 20
 			    })
 			    canvas.add(fabicText);
+			  save();
 			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
@@ -320,6 +322,7 @@ var FabricEditor = React.createClass({
 					canvas.setBackgroundImage(img)
 					canvas.renderAll();
 				})
+				save();
 			},
 			removeObject: function () {
 				if(canvas.getActiveGroup()){
@@ -330,6 +333,7 @@ var FabricEditor = React.createClass({
 		    	}
 				canvas.renderAll();
 				console.log("Removing Object")
+				save();
 			},
 			boldenText: function () {
 				var obj = canvas.getActiveObject();
@@ -340,17 +344,21 @@ var FabricEditor = React.createClass({
 					obj.setFontWeight('bold');
 				} 
 				canvas.renderAll();
+				save();
 			},
 			setColor: function (value) {
 				var activeObject = canvas.getActiveObject();
 				activeObject.setColor(value);
 				canvas.renderAll();
+				save();
 			},
 			bringForward: function (){
 				canvas.getActiveObject().bringForward(true);
+				save();
 			},
 			sendBack: function () {
 				canvas.getActiveObject().sendBackwards(true);
+				save();
 			}
 		}
 	},
