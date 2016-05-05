@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
 
 var babel = require('gulp-babel')
 var babelify = require('babelify');
