@@ -41,8 +41,10 @@ function KeyPressed(e) {
       if(canvas.getActiveGroup()){
 	      canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
 	      canvas.discardActiveGroup().renderAll();
+	      save();
 	    } else {
 	      canvas.remove(canvas.getActiveObject());
+	      save();
 	    }
   }
 }
@@ -83,6 +85,7 @@ function replay(playStack, saveStack) {
   canvas.loadFromJSON(state, function() {
     canvas.renderAll();
   });
+  save();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +196,7 @@ var FontContainer = React.createClass({
 	},
 	render: function (){
 		return (	
-    		<div className="fonts-container">
+    		<div className="fonts-container w3-animate-opacity">
 				<div className="content-list-container">
 					<FontList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
 				</div>
@@ -280,11 +283,7 @@ var FabricEditor = React.createClass({
 		// save initial state
 	  save();
 	}
-    // register event listener for user's actions
-    canvas.observe('object:modified', function() {
-    	console.log('object:modified')
-    	save();
-    });
+ 
 
 		fabricAPI = {
 			addItem: function (image) {
@@ -297,8 +296,9 @@ var FabricEditor = React.createClass({
 					img.scaleToHeight(100)
 					canvas.add(img);
 					canvas.renderAll();
+					save();
 				})
-				save();
+				
 			},
 			addTextBox: function(image){
 				// Grab the font name
@@ -310,15 +310,15 @@ var FabricEditor = React.createClass({
 			  			fontSize: 20
 			    })
 			    canvas.add(fabicText);
-			  save();
+				save();
 			},
 			addTemplate: function (image) {
 				fabric.Image.fromURL(image.source, function(img) {
 					img.scaleToWidth(canvas.getWidth())
 					canvas.setBackgroundImage(img)
 					canvas.renderAll();
+					save();
 				})
-				save();
 			},
 			removeObject: function () {
 				if(canvas.getActiveGroup()){
@@ -328,7 +328,6 @@ var FabricEditor = React.createClass({
 		    		canvas.remove(canvas.getActiveObject());
 		    	}
 				canvas.renderAll();
-				console.log("Removing Object")
 				save();
 			},
 			boldenText: function () {

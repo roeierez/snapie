@@ -38,7 +38,7 @@ var ContentContainer = React.createClass({
 	},
 	render: function (){
 		return (	
-    		<div className="content-container">
+    		<div className="content-container w3-animate-opacity">
 				<FilterContainer filterChanged={this.changeFilter}/>
 				<div className="content-list-container">
 					<ContentList addItem={this.props.addItem} ref={(ref) => this.list = ref} />

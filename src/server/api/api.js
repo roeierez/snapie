@@ -71,7 +71,7 @@ else {
 router.get('/templates', function(req, res){
   // path to graphics
 
-  var graphics = '[{"tag":"All, Party","name":"Bday","preview":"/templates/bday.jpg","source":"/templates/bday_2.png"},{"tag":"All, Party","name":"Birthday","preview":"/templates/birthday.jpg","source":"/templates/birthday_2.png"},{"tag":"All, Party","name":"HappyBirthday","preview":"/templates/happybday.jpg","source":"/templates/happybday_2.png"},{"tag":"All, Social","name":"Prom","preview":"/templates/prom.jpg","source":"/templates/prom_2.png"},{"tag":"All, Love","name":"Wed","preview":"/templates/wed.jpg","source":"/templates/wed_2.png"},{"tag":"All, Love","name":"Wedding","preview":"/templates/wedding.jpg","source":"/templates/wedding_2.png"}]';
+  var graphics = '[{"tag":"All, Birthday, Party, Love, Shapes, Holidays, Social, Technology, Random","name":"Empty","preview":"/assets/default/empty.png","source":"/assets/default/empty.png"},{"tag":"All, Party","name":"Bday","preview":"/templates/bday.jpg","source":"/templates/bday_2.png"},{"tag":"All, Party","name":"Birthday","preview":"/templates/birthday.jpg","source":"/templates/birthday_2.png"},{"tag":"All, Party","name":"HappyBirthday","preview":"/templates/happybday.jpg","source":"/templates/happybday_2.png"},{"tag":"All, Social","name":"Prom","preview":"/templates/prom.jpg","source":"/templates/prom_2.png"},{"tag":"All, Love","name":"Wed","preview":"/templates/wed.jpg","source":"/templates/wed_2.png"},{"tag":"All, Love","name":"Wedding","preview":"/templates/wedding.jpg","source":"/templates/wedding_2.png"}]';
 
   var arr = JSON.parse(graphics);
   res.json(arr);
