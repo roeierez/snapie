@@ -288,7 +288,6 @@ var FabricEditor = React.createClass({
 
 		fabricAPI = {
 			addItem: function (image) {
-
 				fabric.Image.fromURL(image.source, function (img){
 					console.log('url',image.source)
 					img.set({

@@ -45,7 +45,7 @@ var Tab = React.createClass({
         return (
         	<a onClick={self.handleClick} href='#'>
 			<li className={self.props.isCurrent ? 'active' : 'inactive'} onClick={self.props.action}>
-					<img src={self.props.icon}/><br/>{self.props.title}
+          <object type="image/svg+xml" data={self.props.icon}></object><br/>{self.props.title}
 			</li>
 			</a>
         );
