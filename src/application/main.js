@@ -244,7 +244,7 @@ var FontItem = React.createClass({
 			<li onClick={this.handleClick} key={item.id}>
 				<div className="font-container">
 					<span className="align-left"><p style={fontstyle}>{item.name}</p></span> 
-          <span className="align-right"><p style={fontstyle}>Pepper is Awesome!</p></span>
+          <span className="align-right"><p style={fontstyle}>Pepper is Awesome.</p></span>
         </div>
         <hr style={separatorstyle}/>  
 			</li>

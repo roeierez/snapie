@@ -101,7 +101,7 @@ var Filter = React.createClass({
         return (
         	<a onClick={self.handleClick} href='#'>
 					<li className="filter" onClick={self.props.action}>
-					{title}</li>
+					<p className={self.props.isCurrent ? 'active' : 'inactive'}>{title}</p></li>
 					</a>
         );
     }
@@ -120,7 +120,7 @@ var Filters = React.createClass({
 	                        handleClick={this.handleClick.bind(this, filter)}
 	                        key={filter}
 	                        title={filter}
-	                        isCurrent={(this.props.currentFilter.title === filter)}
+	                        isCurrent={(this.props.currentFilter == filter)}
 	                     />
 		                );
 		            }.bind(this))}
@@ -138,6 +138,9 @@ var FilterContainer = React.createClass({
     },
 	setFilter: function (filter) {
 		this.props.filterChanged(filter);
+    this.setState({currentFilter: filter});
+    console.log("Current Filter", filter);
+
 	},
 	componentDidMount: function () {
 		this.setFilter(this.state.currentFilter);
