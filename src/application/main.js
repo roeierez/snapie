@@ -449,11 +449,11 @@ var FabricEditor = React.createClass({
 					<img className='phone-img' src="/assets/img/iphone.png" alt="" />
 					<canvas id="canvas" width="225" height="400"></canvas>
 				</div>
-				<div className="download-button">
-					<a href="#" id="downloader" onClick={this.downloadCanvas}>Download</a>
-	     	</div>
 	     	<div className="guidelines">
 	     		<p>Make sure you follow Snapchat's <a href="https://www.snapchat.com/geofilters/tips.html" target="_blank">Guidelines</a></p>
+	     	</div>
+	     	<div className="download">
+	     	<button className="download-button" type="button" onClick={this.downloadCanvas}>Download</button>
 	     	</div>
 	    </div>
 		)

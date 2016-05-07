@@ -19,7 +19,7 @@ $editor-canvas-color: #F1F1F1
 $editor-canvas-height: 100%
 
 $tags-height: 69px
-$globalfont: proxima-nova, Gotham, Helvetica
+$globalfont: museo-sans, Gotham, Helvetica
 $font-color: #99979e
 
 $phone-width: 265px
@@ -88,13 +88,13 @@ body
 			text-align: center
 			height: $categories-width
 			text-transform: uppercase
-			font-size: 12px
+			font-size: 14px
 			color: $font-color
 			font-family: $globalfont
 
 			
 			img
-				height: 50px
+				height: 38px
 		
 
 		li:hover
@@ -137,7 +137,8 @@ body
 
 					li
 						display: inline-block
-						padding: 5px
+						padding-left: 5px
+						padding-right: 5px
 						width: 490px
 
 					.font-container
@@ -160,7 +161,7 @@ body
 							margin: 0px
 
 					.font-container:hover
-						color: #4FB1E9
+						color: #4DB0E9
 
 		.content-container
 			width: $content-container-width
@@ -199,10 +200,10 @@ body
 							color: #99979e
 
 						p:hover
-							color: #4FB1E9
+							color: #4DB0E9
 
 						.active
-							color: #4FB1E9
+							color: #4DB0E9
 
 						
 			.content-list-container
@@ -229,7 +230,7 @@ body
 					.element-image:hover
 						border-weight: thin
 						border: solid
-						border-color: #4FB1E9
+						border-color: #4DB0E9
   				
 	.editor-canvas
 		position: relative
@@ -244,7 +245,6 @@ body
 		.edit-toolbar
 			position: absolute
 			top: 15px
-			left: 10px
 			padding: 5px
 			width: 52px 
 			background-color: #FFFFFF
@@ -272,19 +272,32 @@ body
 				z-index: 20   
 				margin-left: 20px
 				margin-top: 60px
+		
+		.download
+			text-align: center
 
-		.download-button
-			margin: 72px auto auto
-			background-color: #FF3366
-			width: 125px
-			padding: 5px
-			a
-				margin-left: 20px
-				color: white
+			.download-button
+				background-color: #FF3366
+				width: 150px
+				height: 40px
+				padding: 5px
+				a
+					margin-left: 20px
+					color: white
+
+			.download-button:hover
+				background-color: #e60039
 
 		.guidelines
+			margin: 72px auto auto
 			text-align: center
 			color: #99979e
+			a
+				color: #4DB0E9
+
+		.guidelines:hover
+			a
+				color: #198bcc
 
 	.right 
 		float: none  
