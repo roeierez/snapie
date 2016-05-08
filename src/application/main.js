@@ -115,7 +115,7 @@ var TemplatesView = React.createClass({
 	render: function () {
 		return (
 			<div className="content-editor">
-				<ContentContainer items={this.state.items} addItem={this.addItem} />
+				<ContentContainer category="templates" items={this.state.items} addItem={this.addItem} />
 				<FabricEditor/>
 			</div>
 		)
@@ -123,7 +123,9 @@ var TemplatesView = React.createClass({
 })
 var ElementsView = React.createClass({
 	getInitialState: function () {
-		return {items: []}
+		return {
+			items: []
+		}
 	},
 	componentDidMount: function (){
 		this.fetchItems()
@@ -141,12 +143,12 @@ var ElementsView = React.createClass({
 		}.bind(self))
 	},
 	addItem: function (item) {
-		fabricAPI.addItem(item)
+		fabricAPI.addItem(item);		
 	},
 	render: function () {
 		return (
 			<div className="content-editor">
-				<ContentContainer items={this.state.items} addItem={this.addItem} />
+				<ContentContainer category="elements" items={this.state.items} addItem={this.addItem} />
 				<FabricEditor/>
 			</div>
 		)
@@ -218,6 +220,7 @@ var FontList = React.createClass({
 		// current filter is in the tag list, if so display
 		return (
 		<ul className="content-list">
+
 			{images.map(function (image){
 				return <FontItem clickFunction={self.props.addItem} item={image}/>;
 			})}
@@ -284,9 +287,15 @@ var FabricEditor = React.createClass({
 	  save();
 	}
  
+	 // register event listener for user's actions
+  canvas.observe('object:modified', function() {
+  	console.log('object:modified')
+  	save();
+  });
 
 		fabricAPI = {
 			addItem: function (image) {
+				console.log('ADDING IMAGE (FABRIC API)', image);
 				fabric.Image.fromURL(image.source, function (img){
 					console.log('url',image.source)
 					img.set({
@@ -512,17 +521,11 @@ var ColorSelector = React.createClass({
   	}
 })
 
-// Bootstrapping the application
-
-// ReactDOM.render(
-// 	<Editor/>,
-// 	document.getElementById('editor')
-// );
-module.exports = {
+module.exports = { 
 	Editor,
 	TemplatesView,
 	ElementsView,
 	TextView
-}
+};
 
 

@@ -1,6 +1,7 @@
 var React = require('react');
 var CategoryBar = require('./category-bar');
 var fabricAPI;
+var Upload = require('./upload-container');
 
 var ContentContainer = React.createClass({
 	getInitialState: function() {
@@ -41,7 +42,7 @@ var ContentContainer = React.createClass({
     		<div className="content-container w3-animate-opacity">
 				<FilterContainer filterChanged={this.changeFilter}/>
 				<div className="content-list-container">
-					<ContentList addItem={this.props.addItem} ref={(ref) => this.list = ref} />
+					<ContentList category={this.props.category} addItem={this.props.addItem} ref={(ref) => this.list = ref} />
 				</div>
 			</div>
 		);
@@ -65,6 +66,7 @@ var ContentList = React.createClass({
 		// current filter is in the tag list, if so display
 		return (
 		<ul className="content-list">
+      {(self.props.category === 'elements') ?  <Upload addUploadItem={self.props.addItem}  /> : null}
 			{images.map(function (image){
 				return <ContentItem clickFunction={self.props.addItem} item={image}/>;
 			})}
@@ -76,7 +78,7 @@ var ContentList = React.createClass({
 var ContentItem = React.createClass({
 	handleClick: function (){
 		var item = this.props.item;
-		console.log(item)
+		console.log("Content Item", item)
 		this.props.clickFunction(item)
 	},
 	render: function (){
@@ -156,5 +158,6 @@ var FilterContainer = React.createClass({
 
 
 module.exports = ContentContainer;
+
 
 
