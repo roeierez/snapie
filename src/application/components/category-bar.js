@@ -19,7 +19,8 @@ var tabList = [
 		icon  : '/assets/img/text.svg',
 		url   : '/api/fonts',
 		state : '/text'
-	},
+	}
+  /*,
 	{
 		title : "Custom",
 		icon  : '/assets/img/custommade.svg',
@@ -30,6 +31,7 @@ var tabList = [
 		icon  : '/assets/img/animate.svg',
 		state : "/animoji"
 	}
+  */
 ]
 
 var Tab = React.createClass({

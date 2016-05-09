@@ -49,6 +49,7 @@
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-dropzone": "^3.4.0",
+    "react-modal": "^1.2.1",
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {

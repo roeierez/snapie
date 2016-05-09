@@ -16,7 +16,7 @@ var Upload = React.createClass({
           preview: null,
           source: this.state.imagesrc.preview
         }
-        if (this.state.imagesrc.type == "image/png"){
+        if (this.state.imagesrc.type == "image/png" || this.state.imagesrc.type == "image/svg"){
           this.props.addUploadItem(img)
         }else{
           console.log("Invalid file type. Please select an image.")
@@ -33,5 +33,6 @@ var Upload = React.createClass({
       );
     }
 });
+
 
 module.exports = Upload;
