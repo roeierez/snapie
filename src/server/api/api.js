@@ -5,7 +5,11 @@ var express = require('express');
 var pg = require('pg');
 
 // get an instance of the express Router
-var router = express.Router()
+var router = express.Router();
+
+var args = process.argv.slice(2),
+    isSiteEditorMode = args.indexOf('siteEditor') >= 0;
+
 
 /*
 if (process.env.NODE_ENV==='dev'){
@@ -66,8 +70,11 @@ else {
 //
 // TODO: set this up properly
 ////////////////////////////////////////////////////////////////////////////////
-var backgroundsConfig = JSON.parse('[{"tag":"All, Birthday, Party, Love, Shapes, Holidays, Social, Technology, Random","name":"Empty","preview":"/assets/default/empty.png"},{"tag":"All, Party","name":"Bday","preview":"/templates/bday.jpg"},{"tag":"All, Party","name":"Birthday","preview":"/templates/birthday.jpg"},{"tag":"All, Party","name":"HappyBirthday","preview":"/templates/happybday.jpg"},{"tag":"All, Social","name":"Prom","preview":"/templates/prom.jpg"},{"tag":"All, Love","name":"Wed","preview":"/templates/wed.jpg"},{"tag":"All, Love","name":"Wedding","preview":"/templates/wedding.jpg"},{"tag":"All, Social","name":"event3","preview":"/templates/event_3a.jpg"},{"tag":"All, Party","name":"happy3","preview":"/templates/happy_3.jpg"},{"tag":"All, Party","name":"happy2","preview":"/templates/happy_2.jpg"}]');
-router.get('/backgrounds', (req, res) =>  res.json(backgroundsConfig));
+
+if (isSiteEditorMode) {
+  var backgroundsConfig = JSON.parse('[{"tag":"All, Birthday, Party, Love, Shapes, Holidays, Social, Technology, Random","name":"Empty","preview":"/assets/default/empty.png"},{"tag":"All, Party","name":"Bday","preview":"/templates/bday.jpg"},{"tag":"All, Party","name":"Birthday","preview":"/templates/birthday.jpg"},{"tag":"All, Party","name":"HappyBirthday","preview":"/templates/happybday.jpg"},{"tag":"All, Social","name":"Prom","preview":"/templates/prom.jpg"},{"tag":"All, Love","name":"Wed","preview":"/templates/wed.jpg"},{"tag":"All, Love","name":"Wedding","preview":"/templates/wedding.jpg"},{"tag":"All, Social","name":"event3","preview":"/templates/event_3a.jpg"},{"tag":"All, Party","name":"happy3","preview":"/templates/happy_3.jpg"},{"tag":"All, Party","name":"happy2","preview":"/templates/happy_2.jpg"}]');
+  router.get('/backgrounds', (req, res) => res.json(backgroundsConfig));
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,24 +91,26 @@ var templatesGraphics = [],
 
 router.get('/templates', (req, res) => res.json(templatesGraphics));
 
-router.post('/templates', (req, res) => {
-  var tag = req.body.tags || [],
-      preview = req.body.previewURL,
-      dynamicContent = req.body.dynamicContent;
+if (isSiteEditorMode) {
+  router.post('/templates', (req, res) => {
+    var tag = req.body.tags || [],
+        preview = req.body.previewURL,
+        dynamicContent = req.body.dynamicContent;
 
-  templatesGraphics.push({
-    id: templateIDCounter++,
-    tag,
-    preview,
-    dynamicContent
+    templatesGraphics.push({
+      id: templateIDCounter++,
+      tag,
+      preview,
+      dynamicContent
+    });
+    res.send(200);
   });
-  res.send(200);
-});
 
-router.delete('/templates/:id', (req, res) => {
-  templatesGraphics = templatesGraphics.filter( t => t.id != req.params.id);
-  res.send(200);
-});
+  router.delete('/templates/:id', (req, res) => {
+    templatesGraphics = templatesGraphics.filter(t => t.id != req.params.id);
+    res.send(200);
+  });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // FONTS
