@@ -89,7 +89,7 @@ var ContentItem = React.createClass({
 	},
 	render: function (){
 		var item = this.props.item,
-			deleteItem = this.props.deleteItem && <img className='deleteContentItem' onClick={this.handleDelete} src="/assets/toolbar_icons/trash.svg"/>;
+			deleteItem = this.props.deleteItem && <i className="fa fa-times deleteContentItem" aria-hidden="true" onClick={this.handleDelete} />;
 
 		return (
 			<li className="element" onClick={this.handleClick} key={item.id}>
