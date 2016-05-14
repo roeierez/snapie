@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom')
+var roles = require('./roles');
 
 var ContentContainer = require('./components/content-container.js')
 var FontContainer = require('./components/font-container.js')
@@ -470,10 +471,12 @@ var FabricEditor = React.createClass({
 					<p>Make sure you follow Snapchat's <a href="https://geofilters.snapchat.com/submission-guidelines" target="_blank">Guidelines</a></p>
 				</div>
 				<div className="canvas-actions">
-					<div className="template-actions">
-						<input ref="tagsInput" type="text" placeholder="Tags separated by commas" />
-						<button className="action-button" type="button"><a href="#" id="templateSaver" onClick={this.saveAsTemplate}>Save as template</a></button>
-					</div>
+					{roles.siteEditor && (
+						<div className="template-actions">
+							<input ref="tagsInput" type="text" placeholder="Tags separated by commas" />
+							<button className="action-button" type="button"><a href="#" id="templateSaver" onClick={this.saveAsTemplate}>Save as template</a></button>
+						</div>
+					)}
 					<button className="action-button" type="button"><a href="#" id="downloader" onClick={this.downloadCanvas}>Download</a></button>
 				</div>
 			</div>

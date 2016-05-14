@@ -3,13 +3,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {BackgroundsView, TextView, TemplatesView, ElementsView} from './main.js'
 import CategoryBar from './components/category-bar'
+import * as roles from './roles'
 
 
 var App = React.createClass({
 	render: function () {
 		return (
 			<div className="application">
-				<CategoryBar categoryChanged={this.changeCategory}/>
+				<CategoryBar showBackgrounds={roles.siteEditor} categoryChanged={this.changeCategory}/>
 				{this.props.children}
 			</div>
 		)
@@ -21,7 +22,7 @@ ReactDOM.render((
 		<Route component={App}>
 			<Route path="/" component={TemplatesView}/>
 			<Route path="templates" component={TemplatesView}/>
-			<Route path="backgrounds" component={BackgroundsView}/>
+			{roles.siteEditor && <Route path="backgrounds" component={BackgroundsView}/> }
 			<Route path="elements" component={ElementsView}/>
 			<Route path="text" component={TextView}/>
 			<Route path="upload"/>
