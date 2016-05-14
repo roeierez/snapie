@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom')
+var roles = require('./roles');
 
 var ContentContainer = require('./components/content-container.js')
 var FontContainer = require('./components/font-container.js')
@@ -90,6 +91,42 @@ function replay(playStack, saveStack) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+var BackgroundsView = React.createClass({
+	getInitialState: function () {
+		return {
+			items: []
+		}
+	},
+	componentDidMount: function (){
+		this.fetchItems()
+	},
+	shouldComponentUpdate: function (a, b){
+		return true
+	},
+	fetchItems: function () {
+		var self = this;
+		$.get('/api/backgrounds', function(results) {
+			console.log('retrieved results', results)
+			this.setState({
+				items: results
+			});
+		}.bind(self))
+	},
+	addItem: function (item) {
+		fabricAPI.addBackground(item);
+	},
+
+	render: function () {
+		return (
+			<div className="content-editor">
+				<ContentContainer category="backgrounds" items={this.state.items} addItem={this.addItem} />
+				<FabricEditor/>
+			</div>
+		)
+	}
+});
+
 var TemplatesView = React.createClass({
 	getInitialState: function () {
 		return {items: []}
@@ -113,10 +150,24 @@ var TemplatesView = React.createClass({
 	addItem: function (item) {
 		fabricAPI.addTemplate(item)
 	},
+	deleteItem: function(item) {
+		var self = this;
+
+		$.ajax({
+			url: `/api/templates/${item.id}`,
+			type: 'DELETE',
+			success: () => {
+				self.setState({
+					items: self.state.items.filter(i => i !== item)
+				});
+			}
+		});
+	},
+
 	render: function () {
 		return (
 			<div className="content-editor">
-				<ContentContainer category="templates" items={this.state.items} addItem={this.addItem} />
+				<ContentContainer category="templates" items={this.state.items} deleteItem={this.deleteItem} addItem={this.addItem} />
 				<FabricEditor/>
 			</div>
 		)
@@ -146,6 +197,7 @@ var ElementsView = React.createClass({
 	addItem: function (item) {
 		fabricAPI.addItem(item);		
 	},
+
 	render: function () {
 		return (
 			<div className="content-editor">
@@ -253,12 +305,24 @@ var FabricEditor = React.createClass({
 				save();
 			},
 			addTemplate: function (image) {
-				fabric.Image.fromURL(image.source, function(img) {
+				canvas.loadFromDatalessJSON(JSON.parse(image.dynamicContent),
+					() => {
+						canvas.setBackgroundImage(null,
+							() => {
+								canvas.renderAll();
+								save();
+							}
+						)
+					});
+			},
+			addBackground: function(image) {
+				fabric.Image.fromURL(image.preview, function(img) {
 					img.scaleToWidth(canvas.getWidth())
-					canvas.setBackgroundImage(img)
-					canvas.renderAll();
-					save();
-				})
+					canvas.setBackgroundImage(img, () => {
+						canvas.renderAll();
+						save();
+					});
+				});
 			},
 			removeObject: function () {
 				if(canvas.getActiveGroup()){
@@ -297,7 +361,23 @@ var FabricEditor = React.createClass({
 			}
 		}
 	},
+
+	saveAsTemplate: function() {
+		var previewURL = canvas.toDataURL(),
+			dynamicContent,
+			tagsInput = this.refs.tagsInput.value,
+			tags = tagsInput ? tagsInput.split(',') : [];
+
+		canvas.setBackgroundImage(null, () => {
+			dynamicContent = JSON.stringify( canvas.toDatalessJSON() );
+			$.post('/api/templates', {previewURL, dynamicContent, tags}, function(results) {
+				console.log('Saved successfully');
+			});
+		});
+	},
+
 	downloadCanvas: function(event) {
+
 		// Objects need to be re-scaled to 1080x1920 before downloading and then reverted back to 270x480 
 		
 		console.log('downloading image');
@@ -379,23 +459,27 @@ var FabricEditor = React.createClass({
 
 	},
 	render: function () {
-		var self = this;
 		return (
-			<div className="editor-canvas">
 
+			<div className="editor-canvas">
 				<EditToolbar/>
-				
 				<div className="underlay">
 					<img className='phone-img' src="/assets/img/iphone.png" alt="" />
 					<canvas id="canvas" width="225" height="400"></canvas>
 				</div>
-	     	<div className="guidelines">
-	     		<p>Make sure you follow Snapchat's <a href="https://geofilters.snapchat.com/submission-guidelines" target="_blank">Guidelines</a></p>
-	     	</div>
-	     	<div className="download">
-	     	<button className="download-button" type="button"><a href="#" id="downloader" onClick={this.downloadCanvas}>Download</a></button>
-	     	</div>
-	    </div>
+				<div className="guidelines">
+					<p>Make sure you follow Snapchat's <a href="https://geofilters.snapchat.com/submission-guidelines" target="_blank">Guidelines</a></p>
+				</div>
+				<div className="canvas-actions">
+					{roles.siteEditor && (
+						<div className="template-actions">
+							<input ref="tagsInput" type="text" placeholder="Tags separated by commas" />
+							<button className="action-button" type="button"><a href="#" id="templateSaver" onClick={this.saveAsTemplate}>Save as template</a></button>
+						</div>
+					)}
+					<button className="action-button" type="button"><a href="#" id="downloader" onClick={this.downloadCanvas}>Download</a></button>
+				</div>
+			</div>
 		)
 	}
 })
@@ -454,6 +538,7 @@ var ColorSelector = React.createClass({
 
 module.exports = { 
 	Editor,
+	BackgroundsView,
 	TemplatesView,
 	ElementsView,
 	TextView

@@ -3,6 +3,12 @@ import {Link} from 'react-router'
 
 var tabList = [
 	{
+		title : "Backgrounds",
+		icon  : '/assets/img/templates.svg',
+		url   : '/api/backgrounds',
+		state : '/backgrounds'
+	},
+	{
 		title : "Templates",
 		icon  : '/assets/img/templates.svg',
 		url   : '/api/templates',
@@ -81,6 +87,16 @@ var CategoryBar = React.createClass({
             currentTab: tabList[0]
         };
     },
+
+	componentWillMount: function(){
+		if (!this.props.showBackgrounds) {
+			tabList.shift();
+			this.setState({
+				tabList: tabList,
+				currentTab: tabList[0]
+			});
+		}
+	},
 	setCategory: function (category) {
 		console.log('props in CategoryBar', this.props)
 		console.log('setting category to ', category);

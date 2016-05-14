@@ -222,7 +222,19 @@ body
 					li
 						display: inline-block
 						margin: 30px
-
+						position: relative
+						.deleteContentItem
+							width: 20px
+							height: 20px
+							top: 5px
+							right: 5px
+							position: absolute
+							display: none
+							cursor: pointer
+					li:hover
+						.deleteContentItem
+							display: inherit
+							
 					.file-upload
 						width: 100px
 						height: 100px
@@ -235,6 +247,7 @@ body
 						border-weight: thin
 						border: solid
 						border-color: #4DB0E9
+
   				
 	.editor-canvas
 		position: relative
@@ -277,19 +290,27 @@ body
 				margin-left: 20px
 				margin-top: 60px
 		
-		.download
+		.canvas-actions
 			text-align: center
 
-			.download-button
+			.template-actions
+				display: flex
+				justify-content: center
+				input
+					height: 40px
+					width: 300px
+
+			.action-button
 				background-color: #FF3366
 				font-family: $globalfont
 				width: 150px
 				height: 40px
 				padding: 5px
+				margin: 0px 5px 0px 5px
 				a
 					color: white
 
-			.download-button:hover
+			.action-button:hover
 				background-color: #e60039
 
 		.guidelines
