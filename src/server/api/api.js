@@ -5,7 +5,11 @@ var express = require('express');
 var pg = require('pg');
 
 // get an instance of the express Router
-var router = express.Router()
+var router = express.Router();
+
+var args = process.argv.slice(2),
+    isSiteEditorMode = args.indexOf('siteEditor') >= 0;
+
 
 /*
 if (process.env.NODE_ENV==='dev'){
@@ -60,6 +64,19 @@ else {
   } );
 }
 */
+
+////////////////////////////////////////////////////////////////////////////////
+// BACKGROUNDS
+//
+// TODO: set this up properly
+////////////////////////////////////////////////////////////////////////////////
+
+if (isSiteEditorMode) {
+  var backgroundsConfig = JSON.parse('[{"tag":"All, Birthday, Party, Love, Shapes, Holidays, Social, Technology, Random","name":"Empty","preview":"/assets/default/empty.png"},{"tag":"All, Party","name":"Bday","preview":"/templates/bday.jpg"},{"tag":"All, Party","name":"Birthday","preview":"/templates/birthday.jpg"},{"tag":"All, Party","name":"HappyBirthday","preview":"/templates/happybday.jpg"},{"tag":"All, Social","name":"Prom","preview":"/templates/prom.jpg"},{"tag":"All, Love","name":"Wed","preview":"/templates/wed.jpg"},{"tag":"All, Love","name":"Wedding","preview":"/templates/wedding.jpg"},{"tag":"All, Social","name":"event3","preview":"/templates/event_3a.jpg"},{"tag":"All, Party","name":"happy3","preview":"/templates/happy_3.jpg"},{"tag":"All, Party","name":"happy2","preview":"/templates/happy_2.jpg"}]');
+  router.get('/backgrounds', (req, res) => res.json(backgroundsConfig));
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // TEMPLATES
 //
@@ -68,14 +85,32 @@ else {
 
 // more routes for our API will happen here
 // http://localhost:8080/api/template?id=4
-router.get('/templates', function(req, res){
-  // path to graphics
 
-  var graphics = '[{"tag":"All, Birthday, Party, Love, Shapes, Holidays, Social, Technology, Random","name":"Empty","preview":"/assets/default/empty.png","source":"/assets/default/empty.png"},{"tag":"All, Party","name":"Bday","preview":"/templates/bday.jpg","source":"/templates/bday_2.png"},{"tag":"All, Party","name":"Birthday","preview":"/templates/birthday.jpg","source":"/templates/birthday_2.png"},{"tag":"All, Party","name":"HappyBirthday","preview":"/templates/happybday.jpg","source":"/templates/happybday_2.png"},{"tag":"All, Social","name":"Prom","preview":"/templates/prom.jpg","source":"/templates/prom_2.png"},{"tag":"All, Love","name":"Wed","preview":"/templates/wed.jpg","source":"/templates/wed_2.png"},{"tag":"All, Love","name":"Wedding","preview":"/templates/wedding.jpg","source":"/templates/wedding_2.png"},{"tag":"All, Social","name":"event3","preview":"/templates/event_3a.jpg","source":"/templates/event_3.png"},{"tag":"All, Party","name":"happy3","preview":"/templates/happy_3.jpg","source":"/templates/happy_3a.png"},{"tag":"All, Party","name":"happy2","preview":"/templates/happy_2.jpg","source":"/templates/happy_2a.png"}]';
+var templatesGraphics = [],
+    templateIDCounter = 0;
 
-  var arr = JSON.parse(graphics);
-  res.json(arr);
-} );
+router.get('/templates', (req, res) => res.json(templatesGraphics));
+
+if (isSiteEditorMode) {
+  router.post('/templates', (req, res) => {
+    var tag = req.body.tags || [],
+        preview = req.body.previewURL,
+        dynamicContent = req.body.dynamicContent;
+
+    templatesGraphics.push({
+      id: templateIDCounter++,
+      tag,
+      preview,
+      dynamicContent
+    });
+    res.send(200);
+  });
+
+  router.delete('/templates/:id', (req, res) => {
+    templatesGraphics = templatesGraphics.filter(t => t.id != req.params.id);
+    res.send(200);
+  });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // FONTS
