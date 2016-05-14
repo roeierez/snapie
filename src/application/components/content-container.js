@@ -42,7 +42,7 @@ var ContentContainer = React.createClass({
     		<div className="content-container w3-animate-opacity">
 				<FilterContainer filterChanged={this.changeFilter}/>
 				<div className="content-list-container">
-					<ContentList category={this.props.category} addItem={this.props.addItem} ref={(ref) => this.list = ref} />
+					<ContentList {...this.props} ref={(ref) => this.list = ref} />
 				</div>
 			</div>
 		);
@@ -50,7 +50,7 @@ var ContentContainer = React.createClass({
 })
 
 function isInTagList(value, array) {
-  return array.indexOf(value) > -1;
+  return value == 'All' || array.indexOf(value) > -1;
 }
 
 var ContentList = React.createClass({
@@ -68,7 +68,7 @@ var ContentList = React.createClass({
 		<ul className="content-list">
       {(self.props.category === 'elements') ?  <Upload addUploadItem={self.props.addItem}  /> : null}
 			{images.map(function (image){
-				return <ContentItem clickFunction={self.props.addItem} item={image}/>;
+				return <ContentItem {...self.props} item={image}/>;
 			})}
 		</ul>
 		);
@@ -79,12 +79,23 @@ var ContentItem = React.createClass({
 	handleClick: function (){
 		var item = this.props.item;
 		console.log("Content Item", item)
-		this.props.clickFunction(item)
+		this.props.addItem(item)
+	},
+	handleDelete: function(event){
+		var item = this.props.item;
+		console.log("Deleting Content Item", item);
+		event.stopPropagation();
+		this.props.deleteItem(item);
 	},
 	render: function (){
-		var item = this.props.item;
+		var item = this.props.item,
+			deleteItem = this.props.deleteItem && <img className='deleteContentItem' onClick={this.handleDelete} src="/assets/toolbar_icons/trash.svg"/>;
+
 		return (
-			<li className="element" onClick={this.handleClick} key={item.id}><img className="element-image" src={item.preview}/></li>
+			<li className="element" onClick={this.handleClick} key={item.id}>
+				{deleteItem}
+				<img className="element-image" src={item.preview}/>
+			</li>
 		);
 	}
 });

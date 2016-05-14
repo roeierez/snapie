@@ -1,7 +1,7 @@
 import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {TextView, TemplatesView, ElementsView} from './main.js'
+import {BackgroundsView, TextView, TemplatesView, ElementsView} from './main.js'
 import CategoryBar from './components/category-bar'
 
 
@@ -21,6 +21,7 @@ ReactDOM.render((
 		<Route component={App}>
 			<Route path="/" component={TemplatesView}/>
 			<Route path="templates" component={TemplatesView}/>
+			<Route path="backgrounds" component={BackgroundsView}/>
 			<Route path="elements" component={ElementsView}/>
 			<Route path="text" component={TextView}/>
 			<Route path="upload"/>

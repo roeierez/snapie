@@ -3,6 +3,12 @@ import {Link} from 'react-router'
 
 var tabList = [
 	{
+		title : "Backgrounds",
+		icon  : '/assets/img/templates.svg',
+		url   : '/api/backgrounds',
+		state : '/backgrounds'
+	},
+	{
 		title : "Templates",
 		icon  : '/assets/img/templates.svg',
 		url   : '/api/templates',
